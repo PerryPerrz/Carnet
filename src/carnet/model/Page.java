@@ -15,6 +15,11 @@ public abstract class Page {
     protected int numeroPage;
 
     /**
+     * L'indice de la page
+     */
+    protected int indicePage;
+
+    /**
      * Constructeur de la classe Page
      */
     public Page() {
@@ -31,11 +36,29 @@ public abstract class Page {
     }
 
     /**
-     * Fonction qui retourne le numéro de page d'une page
+     * Fonction qui retourne le numéro de page d'un carnet
      *
      * @return un entier, le numéro de page
      */
     public int getNumeroPage() {
         return numeroPage;
+    }
+
+    /**
+     * Fonction qui retourne l'indice d'une page d'un carnet
+     *
+     * @return un entier, l'indice de la page
+     */
+    public int getIndicePage() {
+        return indicePage;
+    }
+
+    /**
+     * Procédure qui définit l'indice de la page
+     *
+     * @param indicePage, l'indice de la page
+     */
+    public void setIndicePage(int indicePage) {
+        this.indicePage = indicePage;
     }
 }

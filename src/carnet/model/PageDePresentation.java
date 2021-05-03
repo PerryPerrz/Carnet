@@ -21,6 +21,19 @@ public class PageDePresentation extends Page {
     }
 
     /**
+     * Constructeur de la classe PageDePresentation
+     *
+     * @param indice entier qui correspond à l'emplacement de la page dans le carnet
+     */
+    public PageDePresentation(int indice) {
+        super();
+        this.indicePage = indice;
+        this.auteur = "Hugo Ipt";
+        this.dateDebut = new Date();
+        this.dateFin = new Date();
+    }
+
+    /**
      * Procédure qui définit l'auteur / le nouvel auteur du carnet
      *
      * @param nouvelAuteur le nouvel auteur

@@ -25,7 +25,7 @@ public class CarnetDeVoyage extends SujetObserve {
         this.nomDuCarnet = "Carnet de Monaco";
         this.participants = new ArrayList<>(4);
         this.pageActuelle = -1;
-        this.pageDePresentation = new PageDePresentation();
+        this.pageDePresentation = new PageDePresentation(1);
         this.pagesDuCarnet = new ArrayList<>(10);
     }
 
@@ -49,9 +49,10 @@ public class CarnetDeVoyage extends SujetObserve {
      * Procédure qui ajoute une nouvelle page du carnet
      */
     public void ajouterPage() {
-        PageDuCarnet pdc = new PageDuCarnet();
+        PageDuCarnet pdc = new PageDuCarnet(); //+2 car la page de présentation a comme indice 1 mais lorsuqu'on la consulte, page actuelle est à -1.
         this.pageActuelle++;
         this.pagesDuCarnet.add(pageActuelle, pdc);
+        this.raffraichirIndices();
     }
 
     /**
@@ -73,6 +74,7 @@ public class CarnetDeVoyage extends SujetObserve {
                 this.pageActuelle--;
             }
         }
+        this.raffraichirIndices();
     }
 
     /**
@@ -103,9 +105,8 @@ public class CarnetDeVoyage extends SujetObserve {
      * Fonction qui retourne la page suivante du carnet
      *
      * @return la page suivante
-     * @throws CarnetException the carnet exception
      */
-    public Page pageSuivante() throws CarnetException {
+    public Page pageSuivante() {
         //Si l'utilisateur arrive à la dernière page et veux arriver à la page suivante, il créer une nouvelle page
         if (this.pageActuelle == this.pagesDuCarnet.size() - 1) {
             this.ajouterPage();
@@ -149,5 +150,18 @@ public class CarnetDeVoyage extends SujetObserve {
      */
     public Iterator<PageDuCarnet> iteratorPageDuCarnet() {
         return this.pagesDuCarnet.iterator();
+    }
+
+    /**
+     * Procédure qui permet de raffraichir les indices des pages du carnet après une action
+     */
+    public void raffraichirIndices() {
+        PageDuCarnet pageARaffraichir;
+        int cpt = 2;
+        for (Iterator<PageDuCarnet> iter = this.iteratorPageDuCarnet(); iter.hasNext(); ) {
+            pageARaffraichir = iter.next();
+            pageARaffraichir.setIndicePage(cpt);
+            cpt++;
+        }
     }
 }
