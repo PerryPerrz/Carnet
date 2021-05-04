@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
  * La classe PanneauDeControlePageDuCarnet
  */
 public class PanneauDeControlePageDuCarnet implements Observateur {
-    private MapView carte;
+    //private MapView carte;
     private TextArea zoneDeTexte;
     private TextField champDeTexte;
 
@@ -29,7 +29,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     /**
      * Instantiates a new Ajouter texte.
      */
-    public ajouterTexte() {
+    public void ajouterTexte() {
 
     }
 

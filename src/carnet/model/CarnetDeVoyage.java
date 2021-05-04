@@ -59,21 +59,26 @@ public class CarnetDeVoyage extends SujetObserve {
      * Procédure qui supprime une page du carnet
      *
      * @param numPageASupprimer numéro de la page à supprimer
-     * @throws CarnetException the carnet exception
+     * @throws CarnetException, throw SupprimerPageDePresentationException & PageInexistanteException
      */
     public void supprimerPage(int numPageASupprimer) throws CarnetException {
         PageDuCarnet pageASupprimer;
-        if (numPageASupprimer == 0)
+        boolean aEteSupprimer = false;
+        if (numPageASupprimer == 1)
             throw new SupprimerPageDePresentationException("Vous ne pouvez pas supprimer la page de présentation !");
         else {
             for (Iterator<PageDuCarnet> iter = this.iteratorPageDuCarnet(); iter.hasNext(); ) {
                 pageASupprimer = iter.next();
-                if (pageASupprimer.getNumeroPage() == numPageASupprimer)
+                if (pageASupprimer.getNumeroPage() == numPageASupprimer) {
                     iter.remove();
-                this.pagesDuCarnet.remove(numPageASupprimer);
-                this.pageActuelle--;
+                    this.pagesDuCarnet.remove(pageASupprimer);
+                    this.pageActuelle--;
+                    aEteSupprimer = true;
+                }
             }
         }
+        if (!aEteSupprimer)
+            throw new PageInexistanteException("La page que vous voulez supprimer n'existe pas");
         this.raffraichirIndices();
     }
 
@@ -94,11 +99,13 @@ public class CarnetDeVoyage extends SujetObserve {
     public Page pagePrecedente() {
         if (this.pageActuelle == -1)
             return this.pageDePresentation;
-        pageActuelle--;
-        if (this.pageActuelle == 0)
+        if (this.pageActuelle == 0) {
+            pageActuelle--;
             return this.pageDePresentation;
-        else
+        } else {
+            pageActuelle--;
             return this.pagesDuCarnet.get(pageActuelle);
+        }
     }
 
     /**
@@ -130,9 +137,9 @@ public class CarnetDeVoyage extends SujetObserve {
      *
      * @param numeroDePage the numero de page
      * @return the page du carnet avec un numero
-     * @throws CarnetException the carnet exception
+     * @throws PageInexistanteException the carnet exception
      */
-    public Page getPageDuCarnetAvecUnNumero(int numeroDePage) throws CarnetException {
+    public Page getPageDuCarnetAvecUnNumero(int numeroDePage) throws PageInexistanteException {
         Page pageRecherchee = null;
         for (Page p : this.pagesDuCarnet) {
             if (p.numeroPage == numeroDePage)
@@ -163,5 +170,14 @@ public class CarnetDeVoyage extends SujetObserve {
             pageARaffraichir.setIndicePage(cpt);
             cpt++;
         }
+    }
+
+    /**
+     * Fonction qui retourne le nombre de page(s) du carnet
+     *
+     * @return l'entier qui correspond au nombre de page(s) du carnet
+     */
+    public int getNbPagesDuCarnet() {
+        return this.pagesDuCarnet.size() + 1;
     }
 }

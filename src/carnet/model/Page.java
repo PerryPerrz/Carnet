@@ -1,5 +1,7 @@
 package carnet.model;
 
+import carnet.outil.FabriqueNumeroPage;
+
 /**
  * La classe Page
  */
@@ -23,6 +25,8 @@ public abstract class Page {
      * Constructeur de la classe Page
      */
     public Page() {
+        FabriqueNumeroPage fabrik = FabriqueNumeroPage.getInstance();
+        this.numeroPage = fabrik.getNumeroPage();
         this.titre = "Nouvelle page";
     }
 
