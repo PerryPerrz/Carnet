@@ -133,6 +133,15 @@ public class CarnetDeVoyage extends SujetObserve {
     }
 
     /**
+     * Gets page de presentation.
+     *
+     * @return the page de presentation
+     */
+    public PageDuCarnet getPageDuCarnet() {
+        return this.pagesDuCarnet.get(this.pageActuelle);
+    }
+
+    /**
      * Gets page du carnet avec un numero.
      *
      * @param numeroDePage the numero de page
@@ -179,5 +188,18 @@ public class CarnetDeVoyage extends SujetObserve {
      */
     public int getNbPagesDuCarnet() {
         return this.pagesDuCarnet.size() + 1;
+    }
+
+    /**
+     * Fonction qui retourne le numéro correspondant à la page actuelle
+     *
+     * @return l'entier qui correspond au numéro de la page actuelle
+     */
+    public int getPageActuelle() {
+        if (this.pageActuelle == -1) { //Si la page actuelle correspond à la page de présentation
+            return this.pageDePresentation.getNumeroPage();
+        } else {
+            return this.pagesDuCarnet.get(this.pageActuelle).getNumeroPage();
+        }
     }
 }

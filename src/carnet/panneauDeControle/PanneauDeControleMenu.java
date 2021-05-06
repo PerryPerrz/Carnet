@@ -2,8 +2,14 @@ package carnet.panneauDeControle;
 
 import carnet.designPattern.Observateur;
 import carnet.exceptions.CarnetException;
-import carnet.exceptions.PageInexistanteException;
+import carnet.exceptions.SupprimerPageDePresentationException;
 import carnet.model.CarnetDeVoyage;
+import javafx.animation.PauseTransition;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
+import javafx.util.Duration;
+
+import java.util.Optional;
 
 /**
  * La classe PanneauDeControleMenu
@@ -36,24 +42,44 @@ public class PanneauDeControleMenu implements Observateur {
 
     /**
      * Procédure renommer
-     *
-     * @param nouveauNom le nouveau nom
      */
-    public void renommer(String nouveauNom) {
-        this.carnet.renommerCarnet(nouveauNom);
+    public void renommer() {
+        TextInputDialog dialog = new TextInputDialog("Carnet | renommer");
+        dialog.setTitle("Renommer le carnet");
+        dialog.setHeaderText("Entrez le nouveau nom :");
+        dialog.setContentText("Nom :");
+
+        Optional<String> res = dialog.showAndWait();
+        res.ifPresent(this.carnet::renommerCarnet);
+
     }
 
     /**
      * Procédure supprimer page
-     *
-     * @param numDeLaPageASupprimer entier correspondant au numéro de la page à supprimer du carnet
-     * @throws PageInexistanteException La page inexistante exception
      */
-    public void supprimer(int numDeLaPageASupprimer) throws PageInexistanteException{
+    public void supprimer() {
         try {
-            this.carnet.supprimerPage(numDeLaPageASupprimer);
+            this.carnet.supprimerPage(this.carnet.getPageActuelle());
+        } catch (SupprimerPageDePresentationException e) {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setTitle("SupprimerPageDePresentationException");
+            dialog.setHeaderText("Impossible de supprimer la page de présentation");
+            dialog.setContentText("Erreur : la page de présentation ne peut pas être supprimé \n" + "Veuillez rééssayer ! ");
+            dialog.show();
+            //Le chronomètre
+            PauseTransition pt = new PauseTransition(Duration.seconds(5));
+            pt.setOnFinished(Event -> dialog.close());
+            pt.play();
         } catch (CarnetException e) {
-            throw new PageInexistanteException("La page que vous voulez supprimer n'existe pas");
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setTitle("PageInexistanteException");
+            dialog.setHeaderText("Impossible de trouver la page à supprimer");
+            dialog.setContentText("Erreur : la page à supprimer est introuvable \n" + "Veuillez rééssayer ! ");
+            dialog.show();
+            //Le chronomètre
+            PauseTransition pt = new PauseTransition(Duration.seconds(5));
+            pt.setOnFinished(Event -> dialog.close());
+            pt.play();
         }
     }
 
