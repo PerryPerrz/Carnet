@@ -8,6 +8,9 @@ import carnet.exceptions.SupprimerPageDePresentationException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static carnet.outil.SauvegardeEtRestauration.retranscriptionDesInformations;
+import static carnet.outil.SauvegardeEtRestauration.sauvegardeDesInformations;
+
 /**
  * La classe CarnetDeVoyage
  */
@@ -33,7 +36,14 @@ public class CarnetDeVoyage extends SujetObserve {
      * Procédure qui sauvegarde le carnet
      */
     public void enregistrerCarnet() {
+        sauvegardeDesInformations(this);
+    }
 
+    /**
+     * Procédure qui ouvre un nouveau carnet avec les informations de l'utilisateurs sauvegardés
+     */
+    public void nouveauCarnet() {
+        retranscriptionDesInformations();
     }
 
     /**
@@ -177,6 +187,15 @@ public class CarnetDeVoyage extends SujetObserve {
      */
     public Iterator<PageDuCarnet> iteratorPageDuCarnet() {
         return this.pagesDuCarnet.iterator();
+    }
+
+    /**
+     * Iterator participants du carnet
+     *
+     * @return the iterator
+     */
+    public Iterator<String> iteratorParticipantsDuCarnet() {
+        return this.participants.iterator();
     }
 
     /**

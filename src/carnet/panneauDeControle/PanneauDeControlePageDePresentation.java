@@ -132,20 +132,18 @@ public class PanneauDeControlePageDePresentation implements Observateur {
      */
     public void pageSuivante() {
         this.carnet.pageSuivante();
-
     }
 
     /**
      * Procédure setImage
      */
     public void setImage() {
-
     }
 
     /**
-     * Procédure enregistrer qui sauvegarde les informations rentrées par l'utilisateur
+     * Procédure qui sauvegarde les informations rentrées par l'utilisateur dans le modèle
      */
-    public void enregistrer() {
+    public void sauvegarderLesModifications() {
         this.ajouterAuteur();
         this.ajouterDateDebut();
         this.ajouterDateFin();

@@ -25,7 +25,7 @@
                         <HBox alignment="CENTER" spacing="10.0">
                            <children>
                               <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" BorderPane.alignment="CENTER" />
-                              <Button mnemonicParsing="false" onAction="#enregistrer" text="Button"/>
+                              <Button mnemonicParsing="false" onAction="#sauvegarderLesModifications" text="Save"/>
                            </children>
                         </HBox>
                      </bottom>

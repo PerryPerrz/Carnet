@@ -59,4 +59,16 @@ public class PageDePresentation extends Page {
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
     }
+
+    public String getAuteur() {
+        return auteur;
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
+    }
 }
