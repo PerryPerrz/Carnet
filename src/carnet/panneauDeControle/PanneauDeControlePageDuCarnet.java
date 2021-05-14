@@ -1,11 +1,11 @@
 package carnet.panneauDeControle;
 
 import carnet.designPattern.Observateur;
+import carnet.exceptions.PageInexistanteException;
 import carnet.model.CarnetDeVoyage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 /**
  * La classe PanneauDeControlePageDuCarnet
@@ -29,7 +29,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     /**
      * Procédure ajouterTitre
      */
-    public void ajouterTitre() {
+    private void ajouterTitre() {
         //Je récupère le titre que l'utilisateur saisit
         String titre = this.titre.getText();
         this.carnet.getPageDePresentation().setTitre(titre);
@@ -38,7 +38,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     /**
      * Procédure ajouterTexte
      */
-    public void ajouterTexte() {
+    private void ajouterTexte() {
         //Je récupère le texte que l'utilisateur saisit
         String texte = this.zoneDeTexte.getText();
         this.carnet.getPageDuCarnet().setTexte(texte);
@@ -79,8 +79,22 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
 
     }
 
+    /**
+     * Procédure enregistrer qui sauvegarde les informations rentrées par l'utilisateur
+     */
+    public void enregistrer() {
+        this.ajouterTitre();
+        this.ajouterTexte();
+    }
+
     @Override
     public void reagir() {
-
+        if (!carnet.siLaPageActuelleEstLaPageDePresentation()) { //On à pas toujours une page du carnet.
+            try {
+                titre.setText(this.carnet.getPageDuCarnetAvecUnNumero(this.carnet.getPageActuelle()).getTitre());
+            } catch (PageInexistanteException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -65,4 +65,13 @@ public abstract class Page {
     public void setIndicePage(int indicePage) {
         this.indicePage = indicePage;
     }
+
+    /**
+     * Fonction qui retourne le titre d'une page
+     *
+     * @return le titre de la page
+     */
+    public String getTitre() {
+        return titre;
+    }
 }

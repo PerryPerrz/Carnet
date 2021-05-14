@@ -41,7 +41,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     /**
      * Procédure ajouterAuteur
      */
-    public void ajouterAuteur() {
+    private void ajouterAuteur() {
         //Je récupère l'auteur que l'utilisateur saisit
         String auteur = this.auteur.getText();
         this.carnet.getPageDePresentation().setTitre(auteur);
@@ -50,7 +50,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     /**
      * Procédure ajouterDateDebut
      */
-    public void ajouterDateDebut() {
+    private void ajouterDateDebut() {
         try {
             //Je récupère la date que l'utilisateur saisit
             Date dateDeb = new SimpleDateFormat("dd/MM/yyyy").parse(this.dateDebut.getText());
@@ -73,7 +73,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     /**
      * Procédure ajouterDateFin
      */
-    public void ajouterDateFin() {
+    private void ajouterDateFin() {
         try {
             Date dateFin = new SimpleDateFormat("dd/MM/yyyy").parse(this.dateFin.getText());
             this.carnet.getPageDePresentation().setDateFin(dateFin);
@@ -95,7 +95,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     /**
      * Procédure ajouterParticipants
      */
-    public void ajouterParticipants() {
+    private void ajouterParticipants() {
         //Je récupère le(s) participant(s)
         //Je découpe le string que l'utilisateur saisit
         //Je compte le nombre de '-'
@@ -140,6 +140,16 @@ public class PanneauDeControlePageDePresentation implements Observateur {
      */
     public void setImage() {
 
+    }
+
+    /**
+     * Procédure enregistrer qui sauvegarde les informations rentrées par l'utilisateur
+     */
+    public void enregistrer() {
+        this.ajouterAuteur();
+        this.ajouterDateDebut();
+        this.ajouterDateFin();
+        this.ajouterParticipants();
     }
 
     @Override
