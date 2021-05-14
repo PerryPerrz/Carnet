@@ -37,7 +37,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     }
 
     /**
-     * Ajouter titre.
+     * Procédure ajouterTitre
      */
     public void ajouterTitre() {
         //Je récupère le titre que l'utilisateur saisit
@@ -46,7 +46,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     }
 
     /**
-     * Ajouter auteur.
+     * Procédure ajouterAuteur
      */
     public void ajouterAuteur() {
         //Je récupère l'auteur que l'utilisateur saisit
@@ -55,7 +55,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     }
 
     /**
-     * Ajouter date debut.
+     * Procédure ajouterDateDebut
      */
     public void ajouterDateDebut() {
         try {
@@ -78,7 +78,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     }
 
     /**
-     * Ajouter date fin.
+     * Procédure ajouterDateFin
      */
     public void ajouterDateFin() {
         try {
@@ -100,7 +100,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     }
 
     /**
-     * Ajouter participants.
+     * Procédure ajouterParticipants
      */
     public void ajouterParticipants() {
         //Je récupère le(s) participant(s)
@@ -126,15 +126,16 @@ public class PanneauDeControlePageDePresentation implements Observateur {
             this.carnet.ajouterParticipants(participant);
         }
     }
+
     /**
-     * Nouvelle page.
+     * Procédure nouvellePage
      */
     public void nouvellePage() {
         this.carnet.ajouterPage();
     }
 
     /**
-     * Page suivante.
+     * Procédure pageSuivante
      */
     public void pageSuivante() {
         this.carnet.pageSuivante();
@@ -142,7 +143,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     }
 
     /**
-     * Sets image.
+     * Procédure setImage
      */
     public void setImage() {
 

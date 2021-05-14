@@ -25,7 +25,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     }
 
     /**
-     * Ajouter titre.
+     * Procédure ajouterTitre
      */
     public void ajouterTitre() {
         //Je récupère le titre que l'utilisateur saisit
@@ -34,7 +34,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     }
 
     /**
-     * Instantiates a new Ajouter texte.
+     * Procédure ajouterTexte
      */
     public void ajouterTexte() {
         //Je récupère le texte que l'utilisateur saisit
@@ -43,35 +43,35 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     }
 
     /**
-     * Nouvelle page.
+     * Procédure NouvellePage
      */
     public void nouvellePage() {
         this.carnet.ajouterPage();
     }
 
     /**
-     * Page suivante.
+     * Procédure PageSuivante
      */
     public void pageSuivante() {
         this.carnet.pageSuivante();
     }
 
     /**
-     * Page precedente.
+     * Procédure PagePrecedente
      */
     public void pagePrecedente() {
         this.carnet.pagePrecedente();
     }
 
     /**
-     * Sets image.
+     * Procédure SetImage
      */
     public void setImage() {
 
     }
 
     /**
-     * Sets map.
+     * Sets map
      */
     public void setMap() {
 
