@@ -24,4 +24,7 @@
         </menus>
       </MenuBar>
    </top>
+    <center>
+        <fx:include fx:id="PageDePresentation" source="VuePageDePresentation.fxml"/>
+    </center>
 </BorderPane>
