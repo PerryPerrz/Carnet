@@ -34,7 +34,7 @@ public class Main extends Application {
         });
         root = loader.load();
 
-        primaryStage.setTitle("Carnet | Hugo Ipt");
+        primaryStage.setTitle("Carnet | Hugo Iopeti");
         primaryStage.setScene(new Scene(root,800,550));
         primaryStage.show();
     }

@@ -5,6 +5,8 @@ import carnet.exceptions.CarnetException;
 import carnet.exceptions.SupprimerPageDePresentationException;
 import carnet.model.CarnetDeVoyage;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import javafx.util.Duration;
@@ -20,7 +22,7 @@ public class PanneauDeControleMenu implements Observateur {
     /**
      * Constructeur de la classe PanneauDeControleMenu
      *
-     * @param car2voy the car 2 voy
+     * @param car2voy le carnet
      */
     public PanneauDeControleMenu(CarnetDeVoyage car2voy) {
         this.carnet = car2voy;
@@ -44,7 +46,7 @@ public class PanneauDeControleMenu implements Observateur {
      * Procédure renommer
      */
     public void renommer() {
-        TextInputDialog dialog = new TextInputDialog("Carnet | renommer");
+        TextInputDialog dialog = new TextInputDialog("Renommer le carnet");
         dialog.setTitle("Renommer le carnet");
         dialog.setHeaderText("Entrez le nouveau nom :");
         dialog.setContentText("Nom :");
@@ -83,6 +85,9 @@ public class PanneauDeControleMenu implements Observateur {
         }
     }
 
+    public void quitter(){
+        Platform.exit();
+    }
     @Override
     public void reagir() {
 
