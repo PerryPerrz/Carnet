@@ -5,6 +5,7 @@ import carnet.model.CarnetDeVoyage;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
@@ -19,7 +20,7 @@ import java.util.Date;
 public class PanneauDeControlePageDePresentation implements Observateur {
     private final CarnetDeVoyage carnet;
     @FXML
-    private TextField titre;
+    private Label titre;
     @FXML
     private TextField dateDebut;
     @FXML
@@ -34,15 +35,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
      */
     public PanneauDeControlePageDePresentation(CarnetDeVoyage car2voy) {
         this.carnet = car2voy;
-    }
-
-    /**
-     * Procédure ajouterTitre
-     */
-    public void ajouterTitre() {
-        //Je récupère le titre que l'utilisateur saisit
-        String titre = this.titre.getText();
-        this.carnet.getPageDePresentation().setTitre(titre);
+        this.carnet.ajouterObservateur(this);
     }
 
     /**
@@ -151,6 +144,6 @@ public class PanneauDeControlePageDePresentation implements Observateur {
 
     @Override
     public void reagir() {
-
+        titre.setText(this.carnet.getNomDuCarnet());
     }
 }

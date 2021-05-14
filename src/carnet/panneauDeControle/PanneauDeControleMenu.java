@@ -26,6 +26,7 @@ public class PanneauDeControleMenu implements Observateur {
      */
     public PanneauDeControleMenu(CarnetDeVoyage car2voy) {
         this.carnet = car2voy;
+        this.carnet.ajouterObservateur(this);
     }
 
     /**

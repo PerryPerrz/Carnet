@@ -43,6 +43,7 @@ public class CarnetDeVoyage extends SujetObserve {
      */
     public void renommerCarnet(String nouveauNom) {
         this.nomDuCarnet = nouveauNom;
+        notifierObservateurs();
     }
 
     /**
@@ -201,5 +202,9 @@ public class CarnetDeVoyage extends SujetObserve {
         } else {
             return this.pagesDuCarnet.get(this.pageActuelle).getNumeroPage();
         }
+    }
+
+    public String getNomDuCarnet() {
+        return nomDuCarnet;
     }
 }
