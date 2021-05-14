@@ -47,14 +47,24 @@ public class PanneauDeControleMenu implements Observateur {
      * Procédure renommer
      */
     public void renommer() {
-        TextInputDialog dialog = new TextInputDialog("Renommer le carnet");
-        dialog.setTitle("Renommer le carnet");
-        dialog.setHeaderText("Entrez le nouveau nom :");
-        dialog.setContentText("Nom :");
+        if(carnet.siLaPageActuelleEstLaPageDePresentation()) { //Si on veut renommer le titre de la page actuelle
+            TextInputDialog dialog = new TextInputDialog("Renommer le carnet");
+            dialog.setTitle("Renommer le carnet");
+            dialog.setHeaderText("Entrez le nouveau nom :");
+            dialog.setContentText("Nom :");
 
-        Optional<String> res = dialog.showAndWait();
-        res.ifPresent(this.carnet::renommerCarnet);
+            Optional<String> res = dialog.showAndWait();
+            res.ifPresent(this.carnet::renommerCarnet);
+        }
+        else {
+            TextInputDialog dialog = new TextInputDialog("Renommer la page");
+            dialog.setTitle("Renommer la page");
+            dialog.setHeaderText("Entrez le nouveau nom :");
+            dialog.setContentText("Nom :");
 
+            Optional<String> res = dialog.showAndWait();
+            res.ifPresent(this.carnet::renommerPage);
+        }
     }
 
     /**

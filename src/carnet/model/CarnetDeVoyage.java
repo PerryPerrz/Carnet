@@ -47,6 +47,16 @@ public class CarnetDeVoyage extends SujetObserve {
     }
 
     /**
+     * Procédure qui renomme une page du carnet
+     *
+     * @param nouveauNom le nouveau nom du carnet
+     */
+    public void renommerPage(String nouveauNom) {
+        this.pagesDuCarnet.get(this.pageActuelle).setTitre(nouveauNom);
+        notifierObservateurs();
+    }
+
+    /**
      * Procédure qui ajoute une nouvelle page du carnet
      */
     public void ajouterPage() {
@@ -204,7 +214,20 @@ public class CarnetDeVoyage extends SujetObserve {
         }
     }
 
+    /**
+     * Fonction qui retourne le nom du carnet
+     *
+     * @return le nom du carnet
+     */
     public String getNomDuCarnet() {
         return nomDuCarnet;
+    }
+
+    /**
+     * Fonction qui retourne vrai si la page actuelle est une page de présentation
+     * @return un booléen
+     */
+    public boolean siLaPageActuelleEstLaPageDePresentation(){
+        return this.getPageActuelle() == this.getPageDePresentation().getNumeroPage();
     }
 }
