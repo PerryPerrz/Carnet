@@ -14,8 +14,17 @@ public class PageDuCarnet extends Page {
      */
     public PageDuCarnet() {
         super();
-        this.texte = "TEMA LA TAILLE DLA KICHTA";
+        this.texte = "Racontez votre voyage...";
         this.date = new Date();
+    }
+
+    /**
+     * Fonction qui retourne le texte d'une page du carnet
+     *
+     * @return un string, le texte
+     */
+    public String getTexte() {
+        return texte;
     }
 
     /**

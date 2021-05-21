@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carnet.panneauDeControle.PanneauDeControleMenu">
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane fx:id="menu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="carnet.panneauDeControle.PanneauDeControleMenu">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
                 <Menu mnemonicParsing="false" text="Fichier">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#enregistrer" text="Enregistrer" />
-                        <MenuItem mnemonicParsing="false" onAction="#nouveau" text="Nouveau" />
+                        <MenuItem mnemonicParsing="false" onAction="#enregistrer" text="Enregistrer"/>
+                        <MenuItem mnemonicParsing="false" onAction="#nouveau" text="Nouveau"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edition">
@@ -27,6 +28,7 @@
       </MenuBar>
    </top>
     <center>
-        <fx:include fx:id="PageDePresentation" source="VuePageDePresentation.fxml" />
+        <fx:include fx:id="pageDuCarnet" source="VuePageDuCarnet.fxml"/>
+        <fx:include fx:id="pageDePresentation" source="VuePageDePresentation.fxml"/>
     </center>
 </BorderPane>

@@ -1,16 +1,24 @@
 package carnet.panneauDeControle;
 
+import animatefx.animation.FadeIn;
 import carnet.designPattern.Observateur;
 import carnet.exceptions.CarnetException;
 import carnet.exceptions.FichierDeSauvegardeException;
 import carnet.exceptions.SupprimerPageDePresentationException;
 import carnet.model.CarnetDeVoyage;
+import carnet.sauvegarde.SauvegardeDuCarnet;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -18,6 +26,15 @@ import java.util.Optional;
  */
 public class PanneauDeControleMenu implements Observateur {
     private CarnetDeVoyage carnet;
+
+    @FXML
+    BorderPane menu;  //On récupère la VueMenu
+
+    @FXML
+    BorderPane pageDePresentation; //On récupère la VuePageDePresentation
+
+    @FXML
+    BorderPane pageDuCarnet; //On récupère la VuePageDuCarnet
 
     /**
      * Constructeur de la classe PanneauDeControleMenu
@@ -52,7 +69,35 @@ public class PanneauDeControleMenu implements Observateur {
      * Procédure nouveau
      */
     public void nouveau() {
-        //Créer un nouveau carnet et load une nouvelle fenêtre (fxml) sur le nouveau carnet
+        BorderPane root;
+        CarnetDeVoyage carnet = new CarnetDeVoyage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../vues/VueMenu.fxml"));
+        PanneauDeControleMenu pdcM = new PanneauDeControleMenu(carnet);
+        PanneauDeControlePageDePresentation pdcP = new PanneauDeControlePageDePresentation(carnet);
+        PanneauDeControlePageDuCarnet pdcC = new PanneauDeControlePageDuCarnet(carnet);
+
+        loader.setControllerFactory(ic -> {
+            if (ic.equals(carnet.panneauDeControle.PanneauDeControleMenu.class)) return pdcM;
+            else if (ic.equals((carnet.panneauDeControle.PanneauDeControlePageDePresentation.class))) return pdcP;
+            else if (ic.equals(carnet.panneauDeControle.PanneauDeControlePageDuCarnet.class)) return pdcC;
+            else // par défaut...
+                return null;
+        });
+
+        try {
+            root = loader.load();
+            Stage primaryStage = (Stage) this.menu.getScene().getWindow();
+
+            primaryStage.setTitle("Carnet | Hugo Iopeti");
+            primaryStage.setScene(new Scene(root, 800, 600));
+            primaryStage.show();
+
+            //Animation
+            new FadeIn(root).play();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -108,12 +153,70 @@ public class PanneauDeControleMenu implements Observateur {
         }
     }
 
-    public void quitter(){
+    public void quitter() {
         Platform.exit();
+    }
+
+    /**
+     * Procédure qui affiche la page regardée actuellement
+     */
+    public void affichagePage() {
+        if (this.carnet.siLaPageActuelleEstLaPageDePresentation()) {
+            if (menu.getChildren().contains(this.pageDuCarnet)) {
+                this.menu.getChildren().remove(this.pageDuCarnet);
+                this.menu.setCenter(this.pageDePresentation);
+            }
+        } else {
+            if (menu.getChildren().contains(this.pageDePresentation)) {
+                this.menu.getChildren().remove(this.pageDePresentation);
+                this.menu.setCenter(this.pageDuCarnet);
+            }
+        }
+    }
+
+    /**
+     * Procédure qui ouvre un carnet depuis un fichier de sauvegarde
+     */
+    public void ouvrirUnCarnet() {
+        BorderPane root;
+        SauvegardeDuCarnet sauvegarde = SauvegardeDuCarnet.getInstance();
+        CarnetDeVoyage carnet = null;
+        try {
+            carnet = sauvegarde.retranscriptionDuCarnet();
+        } catch (FichierDeSauvegardeException e) {
+            e.printStackTrace();
+        }
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../vues/VueMenu.fxml"));
+        PanneauDeControleMenu pdcM = new PanneauDeControleMenu(carnet);
+        PanneauDeControlePageDePresentation pdcP = new PanneauDeControlePageDePresentation(carnet);
+        PanneauDeControlePageDuCarnet pdcC = new PanneauDeControlePageDuCarnet(carnet);
+
+        loader.setControllerFactory(ic -> {
+            if (ic.equals(carnet.panneauDeControle.PanneauDeControleMenu.class)) return pdcM;
+            else if (ic.equals((carnet.panneauDeControle.PanneauDeControlePageDePresentation.class))) return pdcP;
+            else if (ic.equals(carnet.panneauDeControle.PanneauDeControlePageDuCarnet.class)) return pdcC;
+            else // par défaut...
+                return null;
+        });
+
+        try {
+            root = loader.load();
+            Stage primaryStage = (Stage) this.menu.getScene().getWindow();
+
+            primaryStage.setTitle("Carnet | Hugo Iopeti");
+            primaryStage.setScene(new Scene(root, 800, 600));
+            primaryStage.show();
+
+            //Animation
+            new FadeIn(root).play();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void reagir() {
-
+        this.affichagePage();
     }
 }

@@ -4,14 +4,12 @@ import carnet.designPattern.Observateur;
 import carnet.model.CarnetDeVoyage;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,11 +29,6 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     private TextArea participants;
     @FXML
     private TextField auteur;
-
-    @FXML
-    private Button boutonPageSuivante;
-    @FXML
-    private Button boutonNouvellePage;
 
     /**
      * Constructeur de la classe PanneauDeControlePageDePresentation
@@ -139,15 +132,6 @@ public class PanneauDeControlePageDePresentation implements Observateur {
      */
     public void pageSuivante() {
         this.carnet.pageSuivante();
-        //Je m'occupe de charger la vue de la page suivante
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("VuePageDuCarnet.fxml"));
-            Stage window = (Stage) this.boutonPageSuivante.getScene().getWindow();
-            window.setScene(new Scene(root, 800, 600));
-            window.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -168,6 +152,12 @@ public class PanneauDeControlePageDePresentation implements Observateur {
 
     @Override
     public void reagir() {
-        titre.setText(this.carnet.getNomDuCarnet());
+        if (carnet.siLaPageActuelleEstLaPageDePresentation()) {
+            this.titre.setText(this.carnet.getPageDePresentation().getTitre());
+            this.dateDebut.setText(this.carnet.getPageDePresentation().getDateDebut().toString());
+            this.dateFin.setText(this.carnet.getPageDePresentation().getDateFin().toString());
+            this.participants.setText(this.carnet.getParticipants());
+            this.auteur.setText(this.carnet.getPageDePresentation().getAuteur());
+        }
     }
 }

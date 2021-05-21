@@ -90,6 +90,9 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     @Override
     public void reagir() {
         if (!carnet.siLaPageActuelleEstLaPageDePresentation()) { //On à pas toujours une page du carnet.
+            this.titre.setText(this.carnet.getPageDuCarnet().getTitre());
+            this.zoneDeTexte.setText(this.carnet.getPageDuCarnet().getTexte());
+
             try {
                 titre.setText(this.carnet.getPageDuCarnetAvecUnNumero(this.carnet.getPageActuelle()).getTitre());
             } catch (PageInexistanteException e) {

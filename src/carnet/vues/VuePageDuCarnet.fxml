@@ -8,13 +8,13 @@
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
-            <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#pagePrecedente" text="Button" BorderPane.alignment="CENTER"/>
          </left>
          <right>
-            <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#pageSuivante" text="Button" BorderPane.alignment="CENTER"/>
          </right>
          <bottom>
-            <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#nouvellePage" text="Button" BorderPane.alignment="CENTER"/>
          </bottom>
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -22,11 +22,11 @@
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
                      <bottom>
                          <HBox alignment="CENTER" spacing="10.0">
-                             <children>
-                                 <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE"
-                                         BorderPane.alignment="CENTER"/>
-                                 <Button mnemonicParsing="false" onAction="#enregistrer" text="Button"/>
-                             </children>
+                            <children>
+                               <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE"
+                                       BorderPane.alignment="CENTER"/>
+                               <Button mnemonicParsing="false" onAction="#enregistrer" text="Button"/>
+                            </children>
                          </HBox>
                      </bottom>
                      <center>

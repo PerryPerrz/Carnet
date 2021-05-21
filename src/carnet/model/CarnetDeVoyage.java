@@ -122,15 +122,18 @@ public class CarnetDeVoyage extends SujetObserve {
      * @return la page précedente
      */
     public Page pagePrecedente() {
+        Page page;
         if (this.pageActuelle == -1)
-            return this.pageDePresentation;
-        if (this.pageActuelle == 0) {
+            page = this.pageDePresentation;
+        else if (this.pageActuelle == 0) {
             pageActuelle--;
-            return this.pageDePresentation;
+            page = this.pageDePresentation;
         } else {
             pageActuelle--;
-            return this.pagesDuCarnet.get(pageActuelle);
+            page = this.pagesDuCarnet.get(pageActuelle);
         }
+        notifierObservateurs();
+        return page;
     }
 
     /**
@@ -139,39 +142,43 @@ public class CarnetDeVoyage extends SujetObserve {
      * @return la page suivante
      */
     public Page pageSuivante() {
+        Page page;
         //Si l'utilisateur arrive à la dernière page et veux arriver à la page suivante, il créer une nouvelle page
         if (this.pageActuelle == this.pagesDuCarnet.size() - 1) {
             this.ajouterPage();
-            return this.pagesDuCarnet.get(pageActuelle);
+            page = this.pagesDuCarnet.get(pageActuelle);
+        } else {
+            pageActuelle++;
+            page = this.pagesDuCarnet.get(pageActuelle);
         }
-        pageActuelle++;
-        return this.pagesDuCarnet.get(pageActuelle);
+        notifierObservateurs();
+        return page;
     }
 
     /**
-     * Gets page de presentation.
+     * Fonction qui retourne la page de présentation du carnet
      *
-     * @return the page de presentation
+     * @return la page de présentation du carnet
      */
     public PageDePresentation getPageDePresentation() {
         return pageDePresentation;
     }
 
     /**
-     * Gets page de presentation.
+     * Fonction qui retourne la page actuelle du carnet
      *
-     * @return the page de presentation
+     * @return la page actuelle du carnet
      */
     public PageDuCarnet getPageDuCarnet() {
         return this.pagesDuCarnet.get(this.pageActuelle);
     }
 
     /**
-     * Gets page du carnet avec un numero.
+     * Fonction qui retourne la page du carnet avec un numéro de page
      *
-     * @param numeroDePage the numero de page
-     * @return the page du carnet avec un numero
-     * @throws PageInexistanteException the carnet exception
+     * @param numeroDePage le numero de page
+     * @return la page du carnet avec un numero
+     * @throws PageInexistanteException CarnetException
      */
     public Page getPageDuCarnetAvecUnNumero(int numeroDePage) throws PageInexistanteException {
         Page pageRecherchee = null;
@@ -248,9 +255,18 @@ public class CarnetDeVoyage extends SujetObserve {
 
     /**
      * Fonction qui retourne vrai si la page actuelle est une page de présentation
+     *
      * @return un booléen
      */
-    public boolean siLaPageActuelleEstLaPageDePresentation(){
+    public boolean siLaPageActuelleEstLaPageDePresentation() {
         return this.getPageActuelle() == this.getPageDePresentation().getNumeroPage();
+    }
+
+    public String getParticipants() {
+        StringBuilder str = new StringBuilder(20);
+        for (String s : this.participants) {
+            str.append(s);
+        }
+        return str.toString();
     }
 }
