@@ -2,11 +2,11 @@ package carnet.panneauDeControle;
 
 import carnet.designPattern.Observateur;
 import carnet.exceptions.CarnetException;
+import carnet.exceptions.FichierDeSauvegardeException;
 import carnet.exceptions.SupprimerPageDePresentationException;
 import carnet.model.CarnetDeVoyage;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import javafx.util.Duration;
@@ -33,7 +33,19 @@ public class PanneauDeControleMenu implements Observateur {
      * Procédure enregistrer
      */
     public void enregistrer() {
-        carnet.enregistrerCarnet();
+        try {
+            carnet.enregistrerCarnet();
+        } catch (FichierDeSauvegardeException fDSe) {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setTitle("FichierDeSauvegardeException");
+            dialog.setHeaderText("Impossible de créer ou charger le fichier de sauvegarde");
+            dialog.setContentText("Erreur : un problème à été rencontré lors de la sauvegarde\n" + "Veuillez rééssayer ! ");
+            dialog.show();
+            //Le chronomètre
+            PauseTransition pt = new PauseTransition(Duration.seconds(5));
+            pt.setOnFinished(Event -> dialog.close());
+            pt.play();
+        }
     }
 
     /**
@@ -99,6 +111,7 @@ public class PanneauDeControleMenu implements Observateur {
     public void quitter(){
         Platform.exit();
     }
+
     @Override
     public void reagir() {
 

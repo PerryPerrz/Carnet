@@ -25,7 +25,7 @@
                         <HBox alignment="CENTER" spacing="10.0">
                            <children>
                               <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" BorderPane.alignment="CENTER" />
-                              <Button mnemonicParsing="false" onAction="#sauvegarderLesModifications" text="Save"/>
+                               <Button mnemonicParsing="false" onAction="#sauvegarderLesModifications" text="Save"/>
                            </children>
                         </HBox>
                      </bottom>
@@ -41,7 +41,8 @@
       </BorderPane>
    </center>
    <right>
-      <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+       <Button id="boutonPageSuivante" fx:id="boutonPageSuivante" mnemonicParsing="false" text="Button"
+               BorderPane.alignment="CENTER"/>
    </right>
    <bottom>
       <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />

@@ -2,14 +2,15 @@ package carnet.model;
 
 import carnet.designPattern.SujetObserve;
 import carnet.exceptions.CarnetException;
+import carnet.exceptions.FichierDeSauvegardeException;
 import carnet.exceptions.PageInexistanteException;
 import carnet.exceptions.SupprimerPageDePresentationException;
+import carnet.sauvegarde.SauvegardeDuCarnet;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static carnet.outil.SauvegardeEtRestauration.retranscriptionDesInformations;
-import static carnet.outil.SauvegardeEtRestauration.sauvegardeDesInformations;
+
 
 /**
  * La classe CarnetDeVoyage
@@ -25,7 +26,7 @@ public class CarnetDeVoyage extends SujetObserve {
      * Constructeur de la classe CarnetDeVoyage
      */
     public CarnetDeVoyage() {
-        this.nomDuCarnet = "Carnet de Monaco";
+        this.nomDuCarnet = "Carnet2Voyage";
         this.participants = new ArrayList<>(4);
         this.pageActuelle = -1;
         this.pageDePresentation = new PageDePresentation(1);
@@ -34,16 +35,19 @@ public class CarnetDeVoyage extends SujetObserve {
 
     /**
      * Procédure qui sauvegarde le carnet
+     *
+     * @throws FichierDeSauvegardeException
      */
-    public void enregistrerCarnet() {
-        sauvegardeDesInformations(this);
+    public void enregistrerCarnet() throws FichierDeSauvegardeException {
+        SauvegardeDuCarnet sauvDuCar = SauvegardeDuCarnet.getInstance();
+        sauvDuCar.sauvegardeDuCarnet(this);
     }
 
     /**
      * Procédure qui ouvre un nouveau carnet avec les informations de l'utilisateurs sauvegardés
      */
     public void nouveauCarnet() {
-        retranscriptionDesInformations();
+
     }
 
     /**

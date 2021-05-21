@@ -60,14 +60,29 @@ public class PageDePresentation extends Page {
         this.dateFin = dateFin;
     }
 
+    /**
+     * Fonction qui retourne l'auteur
+     *
+     * @return un string, l'auteur
+     */
     public String getAuteur() {
         return auteur;
     }
 
+    /**
+     * Fonction qui retourne la date de début
+     *
+     * @return la date de début
+     */
     public Date getDateDebut() {
         return dateDebut;
     }
 
+    /**
+     * Fonction qui retourne la date de fin
+     *
+     * @return la date de fin
+     */
     public Date getDateFin() {
         return dateFin;
     }
