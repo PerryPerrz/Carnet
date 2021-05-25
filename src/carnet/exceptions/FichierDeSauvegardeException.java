@@ -6,7 +6,7 @@ package carnet.exceptions;
 public class FichierDeSauvegardeException extends CarnetException {
 
     /**
-     * Constructeur de la classe abstraite des exceptions.
+     * Constructeur de l'exception se déclanchant lorsque l'on n'arrive pas à charger un carnet
      *
      * @param message le message
      */

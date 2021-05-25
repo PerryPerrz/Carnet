@@ -40,7 +40,9 @@
                   </BorderPane>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imagePageDuCarnet" fitHeight="150.0" fitWidth="200.0"
+                                   onDragDropped="#onDragDropped" onDragOver="#onDragOver"
+                                   onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true"/>
                      </children>
                   </VBox>
                </children>

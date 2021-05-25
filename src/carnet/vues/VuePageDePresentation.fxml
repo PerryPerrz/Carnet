@@ -13,41 +13,39 @@
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
                      <center>
                         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <DatePicker fx:id="dateDebut" promptText="Date début"/>
-                              <DatePicker fx:id="dateFin" promptText="Date fin"/>
-                              <TextArea fx:id="participants" prefHeight="200.0" prefWidth="200.0"
-                                        promptText="Participants"/>
-                              <TextField fx:id="auteur" promptText="Auteur"/>
-                           </children>
+                            <children>
+                                <DatePicker fx:id="dateDebut" promptText="Date début"/>
+                                <DatePicker fx:id="dateFin" promptText="Date fin"/>
+                                <TextArea fx:id="participants" prefHeight="200.0" prefWidth="200.0"
+                                          promptText="Participants"/>
+                                <TextField fx:id="auteur" promptText="Auteur"/>
+                            </children>
                         </VBox>
                      </center>
                      <bottom>
                         <HBox alignment="CENTER" spacing="10.0">
                            <children>
                               <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" BorderPane.alignment="CENTER" />
-                              <Button mnemonicParsing="false" onAction="#sauvegarderLesModifications" text="Save"/>
+                               <Button mnemonicParsing="false" onAction="#sauvegarderLesModifications" text="Save"/>
                            </children>
                         </HBox>
                      </bottom>
                   </BorderPane>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </VBox>
+                   <ImageView fx:id="imagePageDePresentation" fitHeight="150.0" fitWidth="200.0"
+                              onDragDropped="#onDragDropped" onDragOver="#onDragOver" onMouseClicked="#onMouseClicked"
+                              pickOnBounds="true" preserveRatio="true"/>
                </children>
             </HBox>
          </center>
       </BorderPane>
    </center>
    <right>
-      <Button id="boutonPageSuivante" mnemonicParsing="false" onAction="#pageSuivante" text="Button"
-              BorderPane.alignment="CENTER"/>
+       <Button id="boutonPageSuivante" mnemonicParsing="false" onAction="#pageSuivante" text="Button"
+               BorderPane.alignment="CENTER"/>
    </right>
    <bottom>
-      <Button mnemonicParsing="false" onAction="#nouvellePage" opacity="0.0" text="Button"
-              BorderPane.alignment="CENTER"/>
+       <Button mnemonicParsing="false" onAction="#nouvellePage" opacity="0.0" text="Button"
+               BorderPane.alignment="CENTER"/>
    </bottom>
    <top>
       <Label fx:id="titre" text="Titre" BorderPane.alignment="CENTER" />
