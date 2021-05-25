@@ -15,7 +15,7 @@ public class PageDuCarnet extends Page {
     public PageDuCarnet() {
         super();
         this.texte = "";
-        this.date = new Date();
+        this.date = null;
     }
 
     /**

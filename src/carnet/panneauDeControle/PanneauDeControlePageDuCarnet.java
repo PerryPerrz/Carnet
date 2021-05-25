@@ -32,7 +32,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     private void ajouterTitre() {
         //Je récupère le titre que l'utilisateur saisit
         String titre = this.titre.getText();
-        this.carnet.getPageDePresentation().setTitre(titre);
+        this.carnet.getPageDuCarnet().setTitre(titre);
     }
 
     /**

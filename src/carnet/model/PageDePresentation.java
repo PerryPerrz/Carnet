@@ -28,9 +28,9 @@ public class PageDePresentation extends Page {
     public PageDePresentation(int indice) {
         super();
         this.indicePage = indice;
-        this.auteur = "Hugo Ipt";
-        this.dateDebut = new Date();
-        this.dateFin = new Date();
+        this.auteur = "";
+        this.dateDebut = null;
+        this.dateFin = null;
     }
 
     /**

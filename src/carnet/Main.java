@@ -8,13 +8,14 @@ import carnet.panneauDeControle.PanneauDeControlePageDuCarnet;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         BorderPane root;
         CarnetDeVoyage carnet = new CarnetDeVoyage();
         FXMLLoader loader = new FXMLLoader();
@@ -22,6 +23,8 @@ public class Main extends Application {
         PanneauDeControleMenu pdcM = new PanneauDeControleMenu(carnet);
         PanneauDeControlePageDePresentation pdcP = new PanneauDeControlePageDePresentation(carnet);
         PanneauDeControlePageDuCarnet pdcC = new PanneauDeControlePageDuCarnet(carnet);
+
+        primaryStage.getIcons().add(new Image("carnet/ressources/carnet.png"));
 
         loader.setControllerFactory(ic -> {
             if (ic.equals(carnet.panneauDeControle.PanneauDeControleMenu.class)) return pdcM;
@@ -38,6 +41,8 @@ public class Main extends Application {
 
         //Animation
         new FadeIn(root).play();
+
+        carnet.notifierObservateurs();
     }
 
     public static void main(String[] args) {

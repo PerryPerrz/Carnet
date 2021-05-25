@@ -4,10 +4,7 @@ import carnet.designPattern.Observateur;
 import carnet.model.CarnetDeVoyage;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.util.Duration;
 
 import java.text.ParseException;
@@ -22,9 +19,9 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     @FXML
     private Label titre;
     @FXML
-    private TextField dateDebut;
+    private DatePicker dateDebut;
     @FXML
-    private TextField dateFin;
+    private DatePicker dateFin;
     @FXML
     private TextArea participants;
     @FXML
@@ -53,11 +50,11 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     private void ajouterDateDebut() {
         try {
             //Je récupère la date que l'utilisateur saisit
-            Date dateDeb = new SimpleDateFormat("dd/MM/yyyy").parse(this.dateDebut.getText());
+            Date dateDeb = new SimpleDateFormat("dd/MM/yyyy").parse(this.dateDebut.getEditor().getText());
             this.carnet.getPageDePresentation().setDateDebut(dateDeb);
         } catch (ParseException e) {
             //Je reset la date de début
-            this.dateDebut.setText("00/00/0000");
+            this.dateDebut.getEditor().setText("00/00/0000");
             Alert dialog = new Alert(Alert.AlertType.ERROR);
             dialog.setTitle("DateInvalideException");
             dialog.setHeaderText("Erreur de saisie : la date est invalide");
@@ -75,11 +72,11 @@ public class PanneauDeControlePageDePresentation implements Observateur {
      */
     private void ajouterDateFin() {
         try {
-            Date dateFin = new SimpleDateFormat("dd/MM/yyyy").parse(this.dateFin.getText());
+            Date dateFin = new SimpleDateFormat("dd/MM/yyyy").parse(this.dateFin.getEditor().getText());
             this.carnet.getPageDePresentation().setDateFin(dateFin);
         } catch (ParseException e) {
             //Je reset la date de fin
-            this.dateFin.setText("00/00/0000");
+            this.dateFin.getEditor().setText("00/00/0000");
             Alert dialog = new Alert(Alert.AlertType.ERROR);
             dialog.setTitle("DateInvalideException");
             dialog.setHeaderText("Erreur de saisie : la date est invalide");
@@ -155,8 +152,10 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     public void reagir() {
         if (carnet.siLaPageActuelleEstLaPageDePresentation()) {
             this.titre.setText(this.carnet.getPageDePresentation().getTitre());
-            this.dateDebut.setText(this.carnet.getPageDePresentation().getDateDebut().toString());
-            this.dateFin.setText(this.carnet.getPageDePresentation().getDateFin().toString());
+            if (carnet.getPageDePresentation().getDateDebut() != null)
+                this.dateDebut.getEditor().setText((new SimpleDateFormat("dd/MM/yyyy").format(carnet.getPageDePresentation().getDateDebut())));
+            if (carnet.getPageDePresentation().getDateFin() != null)
+                this.dateFin.getEditor().setText((new SimpleDateFormat("dd/MM/yyyy").format(carnet.getPageDePresentation().getDateFin())));
             this.participants.setText(this.carnet.getParticipants());
             this.auteur.setText(this.carnet.getPageDePresentation().getAuteur());
         }

@@ -27,7 +27,7 @@ public abstract class Page {
     public Page() {
         FabriqueNumeroPage fabrik = FabriqueNumeroPage.getInstance();
         this.numeroPage = fabrik.getNumeroPage();
-        this.titre = "Nouvelle page";
+        this.titre = "Titre";
     }
 
     /**

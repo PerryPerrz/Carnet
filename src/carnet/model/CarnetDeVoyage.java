@@ -106,7 +106,6 @@ public class CarnetDeVoyage extends SujetObserve {
      * @param participant nom de(s) participant(s)
      */
     public void ajouterParticipants(String participant) {
-        System.out.println("ajouter de carnet" + participant);
         this.participants.add(participant);
     }
 

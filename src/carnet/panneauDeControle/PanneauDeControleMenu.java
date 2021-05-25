@@ -100,7 +100,7 @@ public class PanneauDeControleMenu implements Observateur {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.carnet.notifierObservateurs();
+        carnet.notifierObservateurs();
     }
 
     /**
