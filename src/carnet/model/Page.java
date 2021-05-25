@@ -1,6 +1,7 @@
 package carnet.model;
 
 import carnet.outil.FabriqueNumeroPage;
+import javafx.scene.image.Image;
 
 /**
  * La classe Page
@@ -22,12 +23,19 @@ public abstract class Page {
     protected int indicePage;
 
     /**
+     * L'url de l'image de la page
+     */
+    protected String pathImagePage;
+
+    /**
      * Constructeur de la classe Page
      */
     public Page() {
         FabriqueNumeroPage fabrik = FabriqueNumeroPage.getInstance();
         this.numeroPage = fabrik.getNumeroPage();
         this.titre = "Titre";
+        Image image = new Image("carnet/ressources/carnet.png");
+        this.pathImagePage = image.getUrl().replace("file:", ""); //J'utilise l'image pour récuperer le chemin absolu
     }
 
     /**
@@ -73,5 +81,13 @@ public abstract class Page {
      */
     public String getTitre() {
         return titre;
+    }
+
+    public String getPathImagePage() {
+        return pathImagePage;
+    }
+
+    public void setPathImagePage(String pathImagePage) {
+        this.pathImagePage = pathImagePage;
     }
 }

@@ -31,7 +31,7 @@
                         </HBox>
                      </bottom>
                   </BorderPane>
-                   <ImageView fx:id="imagePageDePresentation" fitHeight="150.0" fitWidth="200.0"
+                   <ImageView fx:id="imagePageDePresentation" fitHeight="253.0" fitWidth="340.0"
                               onDragDropped="#onDragDropped" onDragOver="#onDragOver" onMouseClicked="#onMouseClicked"
                               pickOnBounds="true" preserveRatio="true"/>
                </children>

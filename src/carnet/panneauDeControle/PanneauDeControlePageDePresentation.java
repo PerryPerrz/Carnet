@@ -166,6 +166,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
             if (image.getProgress() == 0) //Si l'image ne s'est pas chargée
                 throw new ImageNotLoadedException("Impossible de charger l'image");
             this.imagePageDePresentation.setImage(image);
+            this.carnet.getPageDePresentation().setPathImagePage(listeDeFichier.get(0).getPath());//On stock l'image dans le model
         } catch (FileNotFoundException fnfe) {
             Alert dialog = new Alert(Alert.AlertType.ERROR);
             dialog.setTitle("FileNotFoundException");
@@ -204,8 +205,8 @@ public class PanneauDeControlePageDePresentation implements Observateur {
         Window fenetre = imagePageDePresentation.getScene().getWindow();
         FileChooser file = new FileChooser();
         file.setTitle("Choisissez votre image !");
-        file.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Tous les fichiers", "*."),
-                new FileChooser.ExtensionFilter("JPG,JPEG,PNG", "*.jpg", "*.jpeg", "*.png"),//On ajoute un filtre dans la fenêtre pour faciliter la recherche d'images
+        //On ajoute un filtre dans la fenêtre pour faciliter la recherche d'images
+        file.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG, JPEG, PNG", "*.jpg", "*.jpeg", "*.png"),
                 new FileChooser.ExtensionFilter("GIFS", "*.gif"));
         File fileSelected = file.showOpenDialog(fenetre);
         try {
@@ -216,6 +217,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
                 if (image.getProgress() == 0) //Si l'image ne s'est pas chargée
                     throw new ImageNotLoadedException("Impossible de charger l'image");
                 this.imagePageDePresentation.setImage(image);
+                this.carnet.getPageDePresentation().setPathImagePage(fileSelected.getPath());
             }
         } catch (FileNotFoundException fnfe) {
             Alert dialog = new Alert(Alert.AlertType.ERROR);
@@ -260,6 +262,11 @@ public class PanneauDeControlePageDePresentation implements Observateur {
                 this.dateFin.getEditor().setText((new SimpleDateFormat("dd/MM/yyyy").format(carnet.getPageDePresentation().getDateFin())));
             this.participants.setText(this.carnet.getParticipants());
             this.auteur.setText(this.carnet.getPageDePresentation().getAuteur());
+            try {
+                this.imagePageDePresentation.setImage(new Image(new FileInputStream(this.carnet.getPageDePresentation().getPathImagePage()))); //On a un chemin absolu, new Image requirt un chemin relatif, donc j'utilise un FileInputStream en intermédiaire.
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -108,6 +108,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
             if (image.getProgress() == 0) //Si l'image ne s'est pas chargée
                 throw new ImageNotLoadedException("Impossible de charger l'image");
             this.imagePageDuCarnet.setImage(image);
+            this.carnet.getPageDuCarnet().setPathImagePage(listeDeFichier.get(0).getPath());//On stock l'image dans le model
         } catch (FileNotFoundException fnfe) {
             Alert dialog = new Alert(Alert.AlertType.ERROR);
             dialog.setTitle("FileNotFoundException");
@@ -146,8 +147,8 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
         Window fenetre = imagePageDuCarnet.getScene().getWindow();
         FileChooser file = new FileChooser();
         file.setTitle("Choisissez votre image !");
-        file.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Tous les fichiers", "*."),
-                new FileChooser.ExtensionFilter("JPG,JPEG,PNG", "*.jpg", "*.jpeg", "*.png"),//On ajoute un filtre dans la fenêtre pour faciliter la recherche d'images
+        //On ajoute un filtre dans la fenêtre pour faciliter la recherche d'images
+        file.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG, JPEG, PNG", "*.jpg", "*.jpeg", "*.png"),
                 new FileChooser.ExtensionFilter("GIFS", "*.gif"));
         File fileSelected = file.showOpenDialog(fenetre);
         try {
@@ -158,6 +159,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
                 if (image.getProgress() == 0) //Si l'image ne s'est pas chargée
                     throw new ImageNotLoadedException("Impossible de charger l'image");
                 this.imagePageDuCarnet.setImage(image);
+                this.carnet.getPageDuCarnet().setPathImagePage(fileSelected.getPath());
             }
         } catch (FileNotFoundException fnfe) {
             Alert dialog = new Alert(Alert.AlertType.ERROR);
@@ -197,10 +199,10 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
         if (!carnet.siLaPageActuelleEstLaPageDePresentation()) { //On à pas toujours une page du carnet.
             this.titre.setText(this.carnet.getPageDuCarnet().getTitre());
             this.zoneDeTexte.setText(this.carnet.getPageDuCarnet().getTexte());
-
             try {
                 titre.setText(this.carnet.getPageDuCarnetAvecUnNumero(this.carnet.getPageActuelle()).getTitre());
-            } catch (PageInexistanteException e) {
+                this.imagePageDuCarnet.setImage(new Image(new FileInputStream(this.carnet.getPageDuCarnet().getPathImagePage())));
+            } catch (FileNotFoundException | PageInexistanteException e) {
                 e.printStackTrace();
             }
         }
