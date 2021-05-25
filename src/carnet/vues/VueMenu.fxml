@@ -12,6 +12,7 @@
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#enregistrer" text="Enregistrer"/>
                         <MenuItem mnemonicParsing="false" onAction="#nouveau" text="Nouveau"/>
+                        <MenuItem mnemonicParsing="false" onAction="#ouvrirUnCarnet" text="Ouvrir"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edition">

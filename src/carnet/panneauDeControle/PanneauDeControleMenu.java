@@ -1,6 +1,8 @@
 package carnet.panneauDeControle;
 
 import animatefx.animation.FadeIn;
+import animatefx.animation.SlideInLeft;
+import animatefx.animation.SlideInRight;
 import carnet.designPattern.Observateur;
 import carnet.exceptions.CarnetException;
 import carnet.exceptions.FichierDeSauvegardeException;
@@ -98,6 +100,7 @@ public class PanneauDeControleMenu implements Observateur {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.carnet.notifierObservateurs();
     }
 
     /**
@@ -165,11 +168,19 @@ public class PanneauDeControleMenu implements Observateur {
             if (menu.getChildren().contains(this.pageDuCarnet)) {
                 this.menu.getChildren().remove(this.pageDuCarnet);
                 this.menu.setCenter(this.pageDePresentation);
+                //Animation
+                new SlideInLeft(this.pageDePresentation).play();
             }
         } else {
             if (menu.getChildren().contains(this.pageDePresentation)) {
                 this.menu.getChildren().remove(this.pageDePresentation);
                 this.menu.setCenter(this.pageDuCarnet);
+            }
+            //Animation
+            if (this.carnet.isToTheLeft()) {
+                new SlideInLeft(this.pageDuCarnet).play();
+            } else {
+                new SlideInRight(this.pageDuCarnet).play();
             }
         }
     }
@@ -213,6 +224,7 @@ public class PanneauDeControleMenu implements Observateur {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        carnet.notifierObservateurs();
     }
 
     @Override

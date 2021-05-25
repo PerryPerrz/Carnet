@@ -14,7 +14,8 @@
             <Button mnemonicParsing="false" onAction="#pageSuivante" text="Button" BorderPane.alignment="CENTER"/>
          </right>
          <bottom>
-            <Button mnemonicParsing="false" onAction="#nouvellePage" text="Button" BorderPane.alignment="CENTER"/>
+            <Button mnemonicParsing="false" onAction="#nouvellePage" opacity="0.0" text="Button"
+                    BorderPane.alignment="CENTER"/>
          </bottom>
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -30,7 +31,8 @@
                          </HBox>
                      </bottom>
                      <center>
-                        <TextArea fx:id="zoneDeTexte" prefHeight="200.0" prefWidth="200.0" promptText="Zone de texte" BorderPane.alignment="CENTER" />
+                        <TextArea fx:id="zoneDeTexte" prefHeight="200.0" prefWidth="200.0"
+                                  promptText="Racontez votre voyage..." BorderPane.alignment="CENTER"/>
                      </center>
                      <top>
                         <Label fx:id="titre" text="Titre" BorderPane.alignment="CENTER" />

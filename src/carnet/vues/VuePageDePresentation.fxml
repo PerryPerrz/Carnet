@@ -45,7 +45,8 @@
               BorderPane.alignment="CENTER"/>
    </right>
    <bottom>
-      <Button mnemonicParsing="false" onAction="#nouvellePage" text="Button" BorderPane.alignment="CENTER"/>
+      <Button mnemonicParsing="false" onAction="#nouvellePage" opacity="0.0" text="Button"
+              BorderPane.alignment="CENTER"/>
    </bottom>
    <top>
       <Label fx:id="titre" text="Titre" BorderPane.alignment="CENTER" />

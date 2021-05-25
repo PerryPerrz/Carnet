@@ -44,7 +44,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     private void ajouterAuteur() {
         //Je récupère l'auteur que l'utilisateur saisit
         String auteur = this.auteur.getText();
-        this.carnet.getPageDePresentation().setTitre(auteur);
+        this.carnet.getPageDePresentation().setAuteur(auteur);
     }
 
     /**
@@ -114,6 +114,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
             pt.play();
         }
         final String separateur = "-";
+        this.carnet.nettoyerLesParticipants();
         String[] participants = this.participants.getText().split(separateur);
         for (String participant : participants) {
             this.carnet.ajouterParticipants(participant);

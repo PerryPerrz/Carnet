@@ -14,7 +14,7 @@ public class PageDuCarnet extends Page {
      */
     public PageDuCarnet() {
         super();
-        this.texte = "Racontez votre voyage...";
+        this.texte = "";
         this.date = new Date();
     }
 

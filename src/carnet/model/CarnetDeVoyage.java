@@ -16,17 +16,16 @@ import java.util.Iterator;
  * La classe CarnetDeVoyage
  */
 public class CarnetDeVoyage extends SujetObserve {
-    private String nomDuCarnet;
     private final ArrayList<String> participants;
     private int pageActuelle;
     private final PageDePresentation pageDePresentation;
     private final ArrayList<PageDuCarnet> pagesDuCarnet;
+    private transient boolean toTheLeft; //Booléen qui regarde si l'utilisateur appuie sur le bouton précedent ou non
 
     /**
      * Constructeur de la classe CarnetDeVoyage
      */
     public CarnetDeVoyage() {
-        this.nomDuCarnet = "Carnet2Voyage";
         this.participants = new ArrayList<>(4);
         this.pageActuelle = -1;
         this.pageDePresentation = new PageDePresentation(1);
@@ -44,19 +43,12 @@ public class CarnetDeVoyage extends SujetObserve {
     }
 
     /**
-     * Procédure qui ouvre un nouveau carnet avec les informations de l'utilisateurs sauvegardés
-     */
-    public void nouveauCarnet() {
-
-    }
-
-    /**
      * Procédure qui renomme le carnet
      *
      * @param nouveauNom le nouveau nom du carnet
      */
     public void renommerCarnet(String nouveauNom) {
-        this.nomDuCarnet = nouveauNom;
+        this.pageDePresentation.setTitre(nouveauNom);
         notifierObservateurs();
     }
 
@@ -105,6 +97,7 @@ public class CarnetDeVoyage extends SujetObserve {
         if (!aEteSupprimer)
             throw new PageInexistanteException("La page que vous voulez supprimer n'existe pas");
         this.raffraichirIndices();
+        this.notifierObservateurs();
     }
 
     /**
@@ -113,6 +106,7 @@ public class CarnetDeVoyage extends SujetObserve {
      * @param participant nom de(s) participant(s)
      */
     public void ajouterParticipants(String participant) {
+        System.out.println("ajouter de carnet" + participant);
         this.participants.add(participant);
     }
 
@@ -132,6 +126,7 @@ public class CarnetDeVoyage extends SujetObserve {
             pageActuelle--;
             page = this.pagesDuCarnet.get(pageActuelle);
         }
+        this.toTheLeft = true;
         notifierObservateurs();
         return page;
     }
@@ -151,6 +146,7 @@ public class CarnetDeVoyage extends SujetObserve {
             pageActuelle++;
             page = this.pagesDuCarnet.get(pageActuelle);
         }
+        this.toTheLeft = false;
         notifierObservateurs();
         return page;
     }
@@ -245,15 +241,6 @@ public class CarnetDeVoyage extends SujetObserve {
     }
 
     /**
-     * Fonction qui retourne le nom du carnet
-     *
-     * @return le nom du carnet
-     */
-    public String getNomDuCarnet() {
-        return nomDuCarnet;
-    }
-
-    /**
      * Fonction qui retourne vrai si la page actuelle est une page de présentation
      *
      * @return un booléen
@@ -265,8 +252,18 @@ public class CarnetDeVoyage extends SujetObserve {
     public String getParticipants() {
         StringBuilder str = new StringBuilder(20);
         for (String s : this.participants) {
-            str.append(s);
+            str.append(s).append("-");
         }
+        if (this.participants.size() > 0)
+            str.deleteCharAt(str.lastIndexOf("-")); //On supprimer le dernier "-"
         return str.toString();
+    }
+
+    public boolean isToTheLeft() {
+        return toTheLeft;
+    }
+
+    public void nettoyerLesParticipants() {
+        this.participants.clear();
     }
 }
