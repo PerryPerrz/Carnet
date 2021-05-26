@@ -8,6 +8,7 @@ import carnet.model.CarnetDeVoyage;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -36,6 +37,12 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     private TextArea zoneDeTexte;
     @FXML
     private ImageView imagePageDuCarnet;
+    @FXML
+    private Button boutonPrec;
+    @FXML
+    private Button boutonSuiv;
+    @FXML
+    private Button boutonSauvegarde;
 
     /**
      * Constructeur de la classe PanneauDeControlePageDuCarnet
@@ -206,5 +213,23 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
                 e.printStackTrace();
             }
         }
+
+        ImageView image = new ImageView(new Image("carnet/ressources/left.png"));
+        image.setFitWidth(35);
+        image.setFitWidth(35);
+        image.setPreserveRatio(true);
+        this.boutonPrec.setGraphic(image);
+
+        ImageView image2 = new ImageView(new Image("carnet/ressources/right.png"));
+        image2.setFitWidth(35);
+        image2.setFitWidth(35);
+        image2.setPreserveRatio(true);
+        this.boutonSuiv.setGraphic(image2);
+
+        ImageView image3 = new ImageView(new Image("carnet/ressources/file.png"));
+        image3.setFitWidth(35);
+        image3.setFitWidth(35);
+        image3.setPreserveRatio(true);
+        this.boutonSauvegarde.setGraphic(image3);
     }
 }

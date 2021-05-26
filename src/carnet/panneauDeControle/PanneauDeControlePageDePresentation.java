@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import javafx.util.Duration;
@@ -41,6 +42,12 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     private TextField auteur;
     @FXML
     private ImageView imagePageDePresentation;
+    @FXML
+    private Button boutonSuiv;
+    @FXML
+    private Button boutonSauvegarde;
+    @FXML
+    private Circle cercle;
 
     /**
      * Constructeur de la classe PanneauDeControlePageDePresentation
@@ -268,5 +275,19 @@ public class PanneauDeControlePageDePresentation implements Observateur {
                 e.printStackTrace();
             }
         }
+
+        ImageView image = new ImageView(new Image("carnet/ressources/right.png"));
+        image.setFitWidth(35);
+        image.setFitWidth(35);
+        image.setPreserveRatio(true);
+        this.boutonSuiv.setGraphic(image);
+
+        ImageView image2 = new ImageView(new Image("carnet/ressources/file.png"));
+        image2.setFitWidth(35);
+        image2.setFitWidth(35);
+        image2.setPreserveRatio(true);
+        this.boutonSauvegarde.setGraphic(image2);
+
+        this.cercle.setAccessibleText("1");
     }
 }
