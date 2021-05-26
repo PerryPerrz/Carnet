@@ -10,8 +10,6 @@ import carnet.sauvegarde.SauvegardeDuCarnet;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
-
 /**
  * La classe CarnetDeVoyage
  */
@@ -264,5 +262,21 @@ public class CarnetDeVoyage extends SujetObserve {
 
     public void nettoyerLesParticipants() {
         this.participants.clear();
+    }
+
+    /**
+     * Procédure qui remet l'indice de la page sur la première page, soit la page de présentation
+     */
+    public void backToPageDePresentation() {
+        this.pageActuelle = -1;
+        notifierObservateurs();
+    }
+
+    /**
+     * Procédure qui remet l'indice de la page sur la première page, soit la page de présentation
+     */
+    public void goToLastPage() {
+        this.pageActuelle = this.pagesDuCarnet.size() - 1;
+        notifierObservateurs();
     }
 }

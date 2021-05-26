@@ -43,6 +43,8 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     private Button boutonSuiv;
     @FXML
     private Button boutonSauvegarde;
+    @FXML
+    private Button home;
 
     /**
      * Constructeur de la classe PanneauDeControlePageDuCarnet
@@ -201,6 +203,13 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
         }
     }
 
+    /**
+     * Procédure qui ramène l'utilisateur sur la page de présentation
+     */
+    public void goHome() {
+        this.carnet.backToPageDePresentation();
+    }
+
     @Override
     public void reagir() {
         if (!carnet.siLaPageActuelleEstLaPageDePresentation()) { //On à pas toujours une page du carnet.
@@ -231,5 +240,11 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
         image3.setFitWidth(35);
         image3.setPreserveRatio(true);
         this.boutonSauvegarde.setGraphic(image3);
+
+        ImageView image4 = new ImageView(new Image("carnet/ressources/carnet.png"));
+        image4.setFitWidth(35);
+        image4.setFitWidth(35);
+        image4.setPreserveRatio(true);
+        this.home.setGraphic(image4);
     }
 }

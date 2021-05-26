@@ -12,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import javafx.util.Duration;
@@ -47,7 +46,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
     @FXML
     private Button boutonSauvegarde;
     @FXML
-    private Circle cercle;
+    private Button lastPage;
 
     /**
      * Constructeur de la classe PanneauDeControlePageDePresentation
@@ -259,6 +258,13 @@ public class PanneauDeControlePageDePresentation implements Observateur {
         }
     }
 
+    /**
+     * Procédure qui ramène l'utilisateur sur la page de présentation
+     */
+    public void leaveHome() {
+        this.carnet.goToLastPage();
+    }
+
     @Override
     public void reagir() {
         if (carnet.siLaPageActuelleEstLaPageDePresentation()) {
@@ -288,6 +294,10 @@ public class PanneauDeControlePageDePresentation implements Observateur {
         image2.setPreserveRatio(true);
         this.boutonSauvegarde.setGraphic(image2);
 
-        this.cercle.setAccessibleText("1");
+        ImageView image3 = new ImageView(new Image("carnet/ressources/carnet.png"));
+        image3.setFitWidth(35);
+        image3.setFitWidth(35);
+        image3.setPreserveRatio(true);
+        this.lastPage.setGraphic(image3);
     }
 }
