@@ -8,6 +8,7 @@ import carnet.exceptions.CarnetException;
 import carnet.exceptions.FichierDeSauvegardeException;
 import carnet.exceptions.SupprimerPageDePresentationException;
 import carnet.model.CarnetDeVoyage;
+import carnet.outil.TailleComposants;
 import carnet.sauvegarde.SauvegardeDuCarnet;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -73,6 +74,7 @@ public class PanneauDeControleMenu implements Observateur {
     public void nouveau() {
         BorderPane root;
         CarnetDeVoyage carnet = new CarnetDeVoyage();
+        TailleComposants tc = TailleComposants.getInstance();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../vues/VueMenu.fxml"));
         PanneauDeControleMenu pdcM = new PanneauDeControleMenu(carnet);
@@ -92,7 +94,7 @@ public class PanneauDeControleMenu implements Observateur {
             Stage primaryStage = (Stage) this.menu.getScene().getWindow();
 
             primaryStage.setTitle("Carnet | Hugo Iopeti");
-            primaryStage.setScene(new Scene(root, 800, 600));
+            primaryStage.setScene(new Scene(root, tc.getWindowX(), tc.getWindowY()));
             primaryStage.show();
 
             //Animation
@@ -191,6 +193,7 @@ public class PanneauDeControleMenu implements Observateur {
     public void ouvrirUnCarnet() {
         BorderPane root;
         SauvegardeDuCarnet sauvegarde = SauvegardeDuCarnet.getInstance();
+        TailleComposants tc = TailleComposants.getInstance();
         CarnetDeVoyage carnet = null;
         try {
             carnet = sauvegarde.retranscriptionDuCarnet();
@@ -216,7 +219,7 @@ public class PanneauDeControleMenu implements Observateur {
             Stage primaryStage = (Stage) this.menu.getScene().getWindow();
 
             primaryStage.setTitle("Carnet | Hugo Iopeti");
-            primaryStage.setScene(new Scene(root, 800, 600));
+            primaryStage.setScene(new Scene(root, tc.getWindowX(), tc.getWindowY()));
             primaryStage.show();
 
             //Animation

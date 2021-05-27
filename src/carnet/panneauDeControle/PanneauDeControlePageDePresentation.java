@@ -4,6 +4,7 @@ import carnet.designPattern.Observateur;
 import carnet.exceptions.CancelImageException;
 import carnet.exceptions.ImageNotLoadedException;
 import carnet.model.CarnetDeVoyage;
+import carnet.outil.TailleComposants;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -267,6 +268,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
 
     @Override
     public void reagir() {
+        TailleComposants tc = TailleComposants.getInstance();
         if (carnet.siLaPageActuelleEstLaPageDePresentation()) {
             this.titre.setText(this.carnet.getPageDePresentation().getTitre());
             if (carnet.getPageDePresentation().getDateDebut() != null)
@@ -283,20 +285,20 @@ public class PanneauDeControlePageDePresentation implements Observateur {
         }
 
         ImageView image = new ImageView(new Image("carnet/ressources/right.png"));
-        image.setFitWidth(35);
-        image.setFitWidth(35);
+        image.setFitWidth(tc.getTailleBouton());
+        image.setFitWidth(tc.getTailleBouton());
         image.setPreserveRatio(true);
         this.boutonSuiv.setGraphic(image);
 
         ImageView image2 = new ImageView(new Image("carnet/ressources/file.png"));
-        image2.setFitWidth(35);
-        image2.setFitWidth(35);
+        image2.setFitWidth(tc.getTailleBouton());
+        image2.setFitWidth(tc.getTailleBouton());
         image2.setPreserveRatio(true);
         this.boutonSauvegarde.setGraphic(image2);
 
         ImageView image3 = new ImageView(new Image("carnet/ressources/carnet.png"));
-        image3.setFitWidth(35);
-        image3.setFitWidth(35);
+        image3.setFitWidth(tc.getTailleBouton());
+        image3.setFitWidth(tc.getTailleBouton());
         image3.setPreserveRatio(true);
         this.lastPage.setGraphic(image3);
     }

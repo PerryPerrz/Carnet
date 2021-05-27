@@ -2,6 +2,7 @@ package carnet;
 
 import animatefx.animation.FadeIn;
 import carnet.model.CarnetDeVoyage;
+import carnet.outil.TailleComposants;
 import carnet.panneauDeControle.PanneauDeControleMenu;
 import carnet.panneauDeControle.PanneauDeControlePageDePresentation;
 import carnet.panneauDeControle.PanneauDeControlePageDuCarnet;
@@ -18,6 +19,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         BorderPane root;
         CarnetDeVoyage carnet = new CarnetDeVoyage();
+        TailleComposants tc = TailleComposants.getInstance();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("vues/VueMenu.fxml"));
         PanneauDeControleMenu pdcM = new PanneauDeControleMenu(carnet);
@@ -36,7 +38,7 @@ public class Main extends Application {
         root = loader.load();
 
         primaryStage.setTitle("Carnet | Hugo Iopeti");
-        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.setScene(new Scene(root, tc.getWindowX(), tc.getWindowY()));
         primaryStage.show();
 
         //Animation

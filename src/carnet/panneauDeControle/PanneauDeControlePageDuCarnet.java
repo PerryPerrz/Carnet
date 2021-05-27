@@ -5,6 +5,7 @@ import carnet.exceptions.CancelImageException;
 import carnet.exceptions.ImageNotLoadedException;
 import carnet.exceptions.PageInexistanteException;
 import carnet.model.CarnetDeVoyage;
+import carnet.outil.TailleComposants;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -212,6 +213,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
 
     @Override
     public void reagir() {
+        TailleComposants tc = TailleComposants.getInstance();
         if (!carnet.siLaPageActuelleEstLaPageDePresentation()) { //On à pas toujours une page du carnet.
             this.titre.setText(this.carnet.getPageDuCarnet().getTitre());
             this.zoneDeTexte.setText(this.carnet.getPageDuCarnet().getTexte());
@@ -224,26 +226,26 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
         }
 
         ImageView image = new ImageView(new Image("carnet/ressources/left.png"));
-        image.setFitWidth(35);
-        image.setFitWidth(35);
+        image.setFitWidth(tc.getTailleBouton());
+        image.setFitWidth(tc.getTailleBouton());
         image.setPreserveRatio(true);
         this.boutonPrec.setGraphic(image);
 
         ImageView image2 = new ImageView(new Image("carnet/ressources/right.png"));
-        image2.setFitWidth(35);
-        image2.setFitWidth(35);
+        image2.setFitWidth(tc.getTailleBouton());
+        image2.setFitWidth(tc.getTailleBouton());
         image2.setPreserveRatio(true);
         this.boutonSuiv.setGraphic(image2);
 
         ImageView image3 = new ImageView(new Image("carnet/ressources/file.png"));
-        image3.setFitWidth(35);
-        image3.setFitWidth(35);
+        image3.setFitWidth(tc.getTailleBouton());
+        image3.setFitWidth(tc.getTailleBouton());
         image3.setPreserveRatio(true);
         this.boutonSauvegarde.setGraphic(image3);
 
-        ImageView image4 = new ImageView(new Image("carnet/ressources/carnet.png"));
-        image4.setFitWidth(35);
-        image4.setFitWidth(35);
+        ImageView image4 = new ImageView(new Image("carnet/ressources/home.png"));
+        image4.setFitWidth(tc.getTailleBouton());
+        image4.setFitWidth(tc.getTailleBouton());
         image4.setPreserveRatio(true);
         this.home.setGraphic(image4);
     }
