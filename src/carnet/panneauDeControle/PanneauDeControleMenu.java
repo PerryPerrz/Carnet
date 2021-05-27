@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -96,6 +97,8 @@ public class PanneauDeControleMenu implements Observateur {
             primaryStage.setTitle("Carnet | Hugo Iopeti");
             primaryStage.setScene(new Scene(root, tc.getWindowX(), tc.getWindowY()));
             primaryStage.show();
+
+            primaryStage.getIcons().add(new Image("carnet/ressources/carnet.png"));
 
             //Animation
             new FadeIn(root).play();
@@ -221,6 +224,8 @@ public class PanneauDeControleMenu implements Observateur {
             primaryStage.setTitle("Carnet | Hugo Iopeti");
             primaryStage.setScene(new Scene(root, tc.getWindowX(), tc.getWindowY()));
             primaryStage.show();
+
+            primaryStage.getIcons().add(new Image("carnet/ressources/carnet.png"));
 
             //Animation
             new FadeIn(root).play();

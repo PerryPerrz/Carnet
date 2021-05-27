@@ -115,9 +115,11 @@ public class PanneauDeControlePageDePresentation implements Observateur {
      * Procédure ajouterParticipants
      */
     private void ajouterParticipants() {
-        //Je récupère le(s) participant(s)
-        //Je découpe le string que l'utilisateur saisit
-        //Je compte le nombre de '-'
+        /*
+        Je récupère le(s) participant(s)
+        Je découpe le string que l'utilisateur saisit
+        Je compte le nombre de '-'
+        */
 
         int pos = this.participants.getText().indexOf('-');
         //Si il n'y a pas de '-'
