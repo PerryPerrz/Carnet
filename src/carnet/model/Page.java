@@ -34,8 +34,7 @@ public abstract class Page {
         FabriqueNumeroPage fabrik = FabriqueNumeroPage.getInstance();
         this.numeroPage = fabrik.getNumeroPage();
         this.titre = "Titre";
-        Image image = new Image("carnet/ressources/image.png");
-        this.pathImagePage = image.getUrl().replace("file:", ""); //J'utilise l'image pour récuperer le chemin absolu
+        this.pathImagePage = "";
     }
 
     /**

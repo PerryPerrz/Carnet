@@ -197,42 +197,49 @@ public class PanneauDeControleMenu implements Observateur {
         BorderPane root;
         SauvegardeDuCarnet sauvegarde = SauvegardeDuCarnet.getInstance();
         TailleComposants tc = TailleComposants.getInstance();
-        CarnetDeVoyage carnet = null;
         try {
-            carnet = sauvegarde.retranscriptionDuCarnet();
+            CarnetDeVoyage carnet = sauvegarde.retranscriptionDuCarnet();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../vues/VueMenu.fxml"));
+            PanneauDeControleMenu pdcM = new PanneauDeControleMenu(carnet);
+            PanneauDeControlePageDePresentation pdcP = new PanneauDeControlePageDePresentation(carnet);
+            PanneauDeControlePageDuCarnet pdcC = new PanneauDeControlePageDuCarnet(carnet);
+
+            loader.setControllerFactory(ic -> {
+                if (ic.equals(carnet.panneauDeControle.PanneauDeControleMenu.class)) return pdcM;
+                else if (ic.equals((carnet.panneauDeControle.PanneauDeControlePageDePresentation.class))) return pdcP;
+                else if (ic.equals(carnet.panneauDeControle.PanneauDeControlePageDuCarnet.class)) return pdcC;
+                else // par défaut...
+                    return null;
+            });
+
+            try {
+                root = loader.load();
+                Stage primaryStage = (Stage) this.menu.getScene().getWindow();
+
+                primaryStage.setTitle("Carnet | Hugo Iopeti");
+                primaryStage.setScene(new Scene(root, tc.getWindowX(), tc.getWindowY()));
+                primaryStage.show();
+
+                primaryStage.getIcons().add(new Image("carnet/ressources/carnet.png"));
+
+                //Animation
+                new FadeIn(root).play();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            carnet.notifierObservateurs();
         } catch (FichierDeSauvegardeException e) {
-            e.printStackTrace();
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setTitle("FichierDeSauvegardeException");
+            dialog.setHeaderText("Impossible de charger un carnet");
+            dialog.setContentText("Erreur : Aucune sauvegarde n'a été trouvée ! \n" + "Veuillez rééssayer ! ");
+            dialog.show();
+            //Le chronomètre
+            PauseTransition pt = new PauseTransition(Duration.seconds(5));
+            pt.setOnFinished(Event -> dialog.close());
+            pt.play();
         }
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../vues/VueMenu.fxml"));
-        PanneauDeControleMenu pdcM = new PanneauDeControleMenu(carnet);
-        PanneauDeControlePageDePresentation pdcP = new PanneauDeControlePageDePresentation(carnet);
-        PanneauDeControlePageDuCarnet pdcC = new PanneauDeControlePageDuCarnet(carnet);
-
-        loader.setControllerFactory(ic -> {
-            if (ic.equals(carnet.panneauDeControle.PanneauDeControleMenu.class)) return pdcM;
-            else if (ic.equals((carnet.panneauDeControle.PanneauDeControlePageDePresentation.class))) return pdcP;
-            else if (ic.equals(carnet.panneauDeControle.PanneauDeControlePageDuCarnet.class)) return pdcC;
-            else // par défaut...
-                return null;
-        });
-
-        try {
-            root = loader.load();
-            Stage primaryStage = (Stage) this.menu.getScene().getWindow();
-
-            primaryStage.setTitle("Carnet | Hugo Iopeti");
-            primaryStage.setScene(new Scene(root, tc.getWindowX(), tc.getWindowY()));
-            primaryStage.show();
-
-            primaryStage.getIcons().add(new Image("carnet/ressources/carnet.png"));
-
-            //Animation
-            new FadeIn(root).play();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        carnet.notifierObservateurs();
     }
 
     @Override

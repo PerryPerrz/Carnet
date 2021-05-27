@@ -280,6 +280,10 @@ public class PanneauDeControlePageDePresentation implements Observateur {
             this.participants.setText(this.carnet.getParticipants());
             this.auteur.setText(this.carnet.getPageDePresentation().getAuteur());
             try {
+                if(this.carnet.getPageDePresentation().getPathImagePage().equals("")) {
+                    Image image = new Image("carnet/ressources/image.png");
+                    this.carnet.getPageDePresentation().setPathImagePage(image.getUrl().replace("file:", "")); //J'utilise l'image pour récuperer le chemin absolu
+                }
                 this.imagePageDePresentation.setImage(new Image(new FileInputStream(this.carnet.getPageDePresentation().getPathImagePage()))); //On a un chemin absolu, new Image requirt un chemin relatif, donc j'utilise un FileInputStream en intermédiaire.
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -298,7 +302,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
         image2.setPreserveRatio(true);
         this.boutonSauvegarde.setGraphic(image2);
 
-        ImageView image3 = new ImageView(new Image("carnet/ressources/carnet.png"));
+        ImageView image3 = new ImageView(new Image("carnet/ressources/last.png"));
         image3.setFitWidth(tc.getTailleBouton());
         image3.setFitWidth(tc.getTailleBouton());
         image3.setPreserveRatio(true);

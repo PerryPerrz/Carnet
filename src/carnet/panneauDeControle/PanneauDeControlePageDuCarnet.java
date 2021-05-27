@@ -219,6 +219,10 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
             this.zoneDeTexte.setText(this.carnet.getPageDuCarnet().getTexte());
             try {
                 titre.setText(this.carnet.getPageDuCarnetAvecUnNumero(this.carnet.getPageActuelle()).getTitre());
+                if(this.carnet.getPageDuCarnet().getPathImagePage().equals("")) {
+                    Image image = new Image("carnet/ressources/image.png");
+                    this.carnet.getPageDuCarnet().setPathImagePage(image.getUrl().replace("file:", "")); //J'utilise l'image pour récuperer le chemin absolu
+                }
                 this.imagePageDuCarnet.setImage(new Image(new FileInputStream(this.carnet.getPageDuCarnet().getPathImagePage())));
             } catch (FileNotFoundException | PageInexistanteException e) {
                 e.printStackTrace();

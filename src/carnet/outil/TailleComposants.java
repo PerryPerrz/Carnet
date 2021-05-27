@@ -13,7 +13,7 @@ public class TailleComposants {
      * Constructeur de la classe TailleComposants, il permet d'initialiser toutes les tailles utilisées dans l'application Carnet
      */
     private TailleComposants() {
-        this.tailleBouton = 35;
+        this.tailleBouton = 40;
         this.windowX = 800;
         this.windowY = 600;
     }
