@@ -279,4 +279,13 @@ public class CarnetDeVoyage extends SujetObserve {
         this.pageActuelle = this.pagesDuCarnet.size() - 1;
         notifierObservateurs();
     }
+
+    public void retranscriptionDesInformationsDUnePageDuCarnet(PageDuCarnet page) {
+        this.getPageDuCarnet().setTitre(page.getTitre());
+        this.getPageDuCarnet().setTexte(page.getTexte());
+        this.getPageDuCarnet().setPathImagePage(page.getPathImagePage());
+        this.getPageDuCarnet().setLatitude(page.getLatitude());
+        this.getPageDuCarnet().setLongitude(page.getLongitude());
+        this.notifierObservateurs();
+    }
 }

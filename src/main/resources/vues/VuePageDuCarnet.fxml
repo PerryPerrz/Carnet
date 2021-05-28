@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carnet.panneauDeControle.PanneauDeControlePageDuCarnet">
     <center>
         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -32,7 +31,8 @@
                                 <TextArea fx:id="zoneDeTexte" prefHeight="294.0" prefWidth="211.0" promptText="Racontez votre voyage..." BorderPane.alignment="CENTER" />
                             </center>
                             <top>
-                                <Label fx:id="titre" prefHeight="26.0" prefWidth="33.0" text="Titre" BorderPane.alignment="CENTER" />
+                                <Label fx:id="titre" alignment="CENTER" prefHeight="26.0" prefWidth="199.0" text="Titre"
+                                       BorderPane.alignment="CENTER"/>
                             </top>
                         </BorderPane>
                         <VBox fx:id="Vbox" alignment="CENTER" prefHeight="66.0" prefWidth="319.0">

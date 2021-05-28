@@ -8,6 +8,7 @@ import carnet.exceptions.CarnetException;
 import carnet.exceptions.FichierDeSauvegardeException;
 import carnet.exceptions.SupprimerPageDePresentationException;
 import carnet.model.CarnetDeVoyage;
+import carnet.model.PageDuCarnet;
 import carnet.outil.TailleComposants;
 import carnet.sauvegarde.SauvegardeDuCarnet;
 import javafx.animation.PauseTransition;
@@ -16,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -39,6 +41,15 @@ public class PanneauDeControleMenu implements Observateur {
 
     @FXML
     BorderPane pageDuCarnet; //On récupère la VuePageDuCarnet
+
+    @FXML
+    MenuItem supprimer; //On récupère le menuItem supprimer
+
+    @FXML
+    MenuItem copier; //On récupère le menuItem copier
+
+    @FXML
+    MenuItem coller; //On récupère le menuItem coller
 
     /**
      * Constructeur de la classe PanneauDeControleMenu
@@ -245,11 +256,38 @@ public class PanneauDeControleMenu implements Observateur {
      * Procédure qui copie une page du carnet
      */
     public void copier() {
+        SauvegardeDuCarnet sauvegarde = SauvegardeDuCarnet.getInstance();
+        sauvegarde.sauvegardeDUnePage(this.carnet.getPageDuCarnet());
+    }
 
+    /**
+     * Procédure qui colle une page du carnet
+     */
+    public void coller() {
+        SauvegardeDuCarnet sauvegarde = SauvegardeDuCarnet.getInstance();
+        try {
+            PageDuCarnet page = sauvegarde.retranscriptionDUnePageDuCarnet();
+            this.carnet.pageSuivante();
+            this.carnet.retranscriptionDesInformationsDUnePageDuCarnet(page);
+        } catch (FichierDeSauvegardeException e) {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setTitle("FichierDeSauvegardeException");
+            dialog.setHeaderText("Impossible de charger la page du carnet");
+            dialog.setContentText("Erreur : Aucune sauvegarde n'a été trouvée ! \n" + "Veuillez rééssayer ! ");
+            dialog.show();
+            //Le chronomètre
+            PauseTransition pt = new PauseTransition(Duration.seconds(5));
+            pt.setOnFinished(Event -> dialog.close());
+            pt.play();
+        }
+        this.carnet.notifierObservateurs();
     }
 
     @Override
     public void reagir() {
+        this.supprimer.setDisable(this.carnet.siLaPageActuelleEstLaPageDePresentation());
+        this.copier.setDisable(this.carnet.siLaPageActuelleEstLaPageDePresentation());
+        this.coller.setDisable(this.carnet.siLaPageActuelleEstLaPageDePresentation());
         this.affichagePage();
     }
 }

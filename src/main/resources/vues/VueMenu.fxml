@@ -18,8 +18,9 @@
                 <Menu mnemonicParsing="false" text="Edition">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#renommer" text="Renommer"/>
-                        <MenuItem mnemonicParsing="false" onAction="#supprimer" text="Supprimer"/>
-                        <MenuItem mnemonicParsing="false" onAction="#copier" text="Copier"/>
+                        <MenuItem fx:id="supprimer" mnemonicParsing="false" onAction="#supprimer" text="Supprimer"/>
+                        <MenuItem fx:id="copier" mnemonicParsing="false" onAction="#copier" text="Copier"/>
+                        <MenuItem fx:id="coller" mnemonicParsing="false" onAction="#coller" text="Coller"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Quitter">

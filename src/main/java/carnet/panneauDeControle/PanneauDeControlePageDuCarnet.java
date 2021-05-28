@@ -14,7 +14,6 @@ import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -37,7 +36,9 @@ import java.util.Optional;
  */
 public class PanneauDeControlePageDuCarnet implements Observateur {
     private final CarnetDeVoyage carnet;
-    //private MapView carte;
+    private Marker mark;
+    private MapView mapView;
+
     @FXML
     private Label titre;
     @FXML
@@ -54,9 +55,6 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     private Button home;
     @FXML
     private VBox Vbox;
-
-    private Marker mark;
-    private MapView mapView;
 
     /**
      * Constructeur de la classe PanneauDeControlePageDuCarnet
@@ -199,7 +197,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
             Alert dialog = new Alert(Alert.AlertType.ERROR);
             dialog.setTitle("CancelImageException");
             dialog.setHeaderText("Impossible d'ajouter l'image");
-            dialog.setContentText("Erreur : l'image n'as pas été choisie\n" + "Veuillez rééssayer ! ");
+            dialog.setContentText("Erreur : l'image n'a pas été choisie\n" + "Veuillez rééssayer ! ");
             dialog.show();
             //Le chronomètre
             PauseTransition pt = new PauseTransition(Duration.seconds(5));
@@ -217,7 +215,13 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
 
     @FXML
     void initialize() {
-        Coordinate coord = new Coordinate(48.66514303712896, 6.161092511379647);
+        Coordinate coord;
+        try {
+            carnet.getPageDuCarnet(); //On regarde si il y a une page du carnet qui existe déjà au moment ou l'on créer le carnet. (si un epage n'as pas été créer avec la save) (Si une page n'est plus vierge)
+            coord = new Coordinate(carnet.getPageDuCarnet().getLatitude(), carnet.getPageDuCarnet().getLongitude());
+        } catch (IndexOutOfBoundsException ioobe) { //Il n'y a pas de page déjà sauvegardée
+            coord = new Coordinate(48.66514303712896, 6.161092511379647);
+        }
 
         this.mark = Marker.createProvided(Marker.Provided.RED);
         mark.setPosition(coord).setVisible(true);
@@ -226,7 +230,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
 
         TailleComposants tc = TailleComposants.getInstance();
         Button boutonMarker = new Button();
-        boutonMarker.setOnAction(e->mark.setVisible(!mark.getVisible()));
+        boutonMarker.setOnAction(e -> mark.setVisible(!mark.getVisible()));
         boutonMarker.setPrefWidth(tc.getTailleBouton());
         boutonMarker.setPrefHeight(tc.getTailleBouton());
         boutonMarker.setStyle("-fx-background-color:transparent;");
@@ -251,9 +255,10 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
 
         this.mapView = new MapView();
 
+        Coordinate finalCoord = coord;
         mapView.initializedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                mapView.setCenter(coord);
+                mapView.setCenter(finalCoord);
                 mapView.addMarker(mark);
             }
         });
@@ -305,6 +310,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
             Coordinate coord = new Coordinate(this.carnet.getPageDuCarnet().getLatitude(), this.carnet.getPageDuCarnet().getLongitude());
             this.mark.setPosition(coord);
             this.mapView.setCenter(coord);
+
             try {
                 titre.setText(this.carnet.getPageDuCarnetAvecUnNumero(this.carnet.getPageActuelle()).getTitre());
                 if (this.carnet.getPageDuCarnet().getPathImagePage().equals("")) {
