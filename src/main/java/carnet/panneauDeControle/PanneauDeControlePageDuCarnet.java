@@ -2,6 +2,7 @@ package carnet.panneauDeControle;
 
 import carnet.designPattern.Observateur;
 import carnet.exceptions.CancelImageException;
+import carnet.exceptions.FormatCoordonneesException;
 import carnet.exceptions.ImageNotLoadedException;
 import carnet.exceptions.PageInexistanteException;
 import carnet.model.CarnetDeVoyage;
@@ -11,15 +12,15 @@ import com.sothawo.mapjfx.MapView;
 import com.sothawo.mapjfx.Marker;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
@@ -29,6 +30,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * La classe PanneauDeControlePageDuCarnet
@@ -52,6 +54,9 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     private Button home;
     @FXML
     private VBox Vbox;
+
+    private Marker mark;
+    private MapView mapView;
 
     /**
      * Constructeur de la classe PanneauDeControlePageDuCarnet
@@ -98,13 +103,6 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
      */
     public void pagePrecedente() {
         this.carnet.pagePrecedente();
-    }
-
-    /**
-     * Sets map
-     */
-    public void setMap() {
-
     }
 
     /**
@@ -221,23 +219,37 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     void initialize() {
         Coordinate coord = new Coordinate(48.66514303712896, 6.161092511379647);
 
-        Marker mark = Marker.createProvided(Marker.Provided.RED);
+        this.mark = Marker.createProvided(Marker.Provided.RED);
         mark.setPosition(coord).setVisible(true);
 
-        TailleComposants tc = TailleComposants.getInstance();
-        Button bouton = new Button();
-        bouton.setOnAction(e->mark.setVisible(!mark.getVisible()));
-        bouton.setPrefWidth(tc.getTailleBouton());
-        bouton.setPrefHeight(tc.getTailleBouton());
-        bouton.setStyle("-fx-background-color:transparent;");
+        HBox Hbox = new HBox();
 
-        ImageView image = new ImageView(new Image("images/carnet.png"));
+        TailleComposants tc = TailleComposants.getInstance();
+        Button boutonMarker = new Button();
+        boutonMarker.setOnAction(e->mark.setVisible(!mark.getVisible()));
+        boutonMarker.setPrefWidth(tc.getTailleBouton());
+        boutonMarker.setPrefHeight(tc.getTailleBouton());
+        boutonMarker.setStyle("-fx-background-color:transparent;");
+
+        Button boutonCoordonnees = new Button();
+        boutonCoordonnees.setOnAction(e->this.changerLesCoordonnees());
+        boutonMarker.setPrefWidth(tc.getTailleBouton());
+        boutonMarker.setPrefHeight(tc.getTailleBouton());
+        boutonCoordonnees.setStyle("-fx-background-color:transparent;");
+
+        ImageView image = new ImageView(new Image("images/pointeur.png"));
         image.setFitWidth(tc.getTailleBouton());
         image.setFitWidth(tc.getTailleBouton());
         image.setPreserveRatio(true);
-        bouton.setGraphic(image);
+        boutonMarker.setGraphic(image);
 
-        MapView mapView = new MapView();
+        ImageView image2 = new ImageView(new Image("images/boussole.png"));
+        image2.setFitWidth(tc.getTailleBouton());
+        image2.setFitWidth(tc.getTailleBouton());
+        image2.setPreserveRatio(true);
+        boutonCoordonnees.setGraphic(image2);
+
+        this.mapView = new MapView();
 
         mapView.initializedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
@@ -249,7 +261,38 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
         mapView.initialize();
         mapView.setMinSize(319, 147);
         mapView.setMaxSize(319, 147);
-        this.Vbox.getChildren().addAll(mapView,bouton);
+
+        Hbox.getChildren().addAll(boutonMarker,boutonCoordonnees);
+        Hbox.setAlignment(Pos.CENTER);
+        this.Vbox.getChildren().addAll(mapView,Hbox);
+    }
+
+    /**
+     * Procédure qui change les coordonnées du pointeur
+     */
+    public void changerLesCoordonnees(){
+        TextInputDialog dialog = new TextInputDialog("Changer les coordonnées");
+        dialog.setTitle("Changer les coordonnées GPS");
+        dialog.setHeaderText("Entrez les coordonnées GPS : ");
+        dialog.setContentText("latitude,longitude :");
+
+        Optional<String> res = dialog.showAndWait();
+        res.ifPresent(coord -> {
+            try {
+                this.carnet.getPageDuCarnet().changerLesCoordonneesDuCurseur(coord);
+            } catch (FormatCoordonneesException e) {
+                Alert dialog2 = new Alert(Alert.AlertType.ERROR);
+                dialog2.setTitle("FormatCoordonneesException");
+                dialog2.setHeaderText("Impossible d'utiliser les coordonnées saisies");
+                dialog2.setContentText("Erreur : un problème à été rencontré lors de la recherche des coordonnées GPS\n" + "Veuillez rééssayer ! ");
+                dialog2.show();
+                //Le chronomètre
+                PauseTransition pt = new PauseTransition(Duration.seconds(5));
+                pt.setOnFinished(Event -> dialog2.close());
+                pt.play();
+            }
+        });
+        this.carnet.notifierObservateurs();
     }
 
     @Override
@@ -258,6 +301,10 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
         if (!carnet.siLaPageActuelleEstLaPageDePresentation()) { //On à pas toujours une page du carnet.
             this.titre.setText(this.carnet.getPageDuCarnet().getTitre());
             this.zoneDeTexte.setText(this.carnet.getPageDuCarnet().getTexte());
+            //Je m'occupe de raffraichir l'affichage de la mapView et du marqueur
+            Coordinate coord = new Coordinate(this.carnet.getPageDuCarnet().getLatitude(), this.carnet.getPageDuCarnet().getLongitude());
+            this.mark.setPosition(coord);
+            this.mapView.setCenter(coord);
             try {
                 titre.setText(this.carnet.getPageDuCarnetAvecUnNumero(this.carnet.getPageActuelle()).getTitre());
                 if (this.carnet.getPageDuCarnet().getPathImagePage().equals("")) {

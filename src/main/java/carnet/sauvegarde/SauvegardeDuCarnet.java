@@ -34,7 +34,7 @@ public class SauvegardeDuCarnet {
 
         //On sauvegarde les informations dans un fichier json.
         try {
-            FileWriter flot = new FileWriter("src/carnet/sauvegarde/sauvegardeCarnet.json");
+            FileWriter flot = new FileWriter("src/main/java/carnet/sauvegarde/sauvegardeCarnet.json");
             PrintWriter flotFiltre = new PrintWriter(flot);
             flotFiltre.println(sauvegarde);
             flotFiltre.close();
@@ -51,7 +51,7 @@ public class SauvegardeDuCarnet {
      */
     public CarnetDeVoyage retranscriptionDuCarnet() throws FichierDeSauvegardeException {
         try {
-            FileReader flot = new FileReader("src/carnet/sauvegarde/sauvegardeCarnet.json");
+            FileReader flot = new FileReader("src/main/java/carnet/sauvegarde/sauvegardeCarnet.json");
             BufferedReader buff = new BufferedReader(flot);
             String ligneLue = buff.readLine();
             StringBuilder str = new StringBuilder(50);

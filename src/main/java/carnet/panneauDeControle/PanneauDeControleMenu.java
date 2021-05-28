@@ -199,7 +199,7 @@ public class PanneauDeControleMenu implements Observateur {
         try {
             CarnetDeVoyage carnet = sauvegarde.retranscriptionDuCarnet();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../vues/VueMenu.fxml"));
+            loader.setLocation(getClass().getResource("/vues/VueMenu.fxml"));
             PanneauDeControleMenu pdcM = new PanneauDeControleMenu(carnet);
             PanneauDeControlePageDePresentation pdcP = new PanneauDeControlePageDePresentation(carnet);
             PanneauDeControlePageDuCarnet pdcC = new PanneauDeControlePageDuCarnet(carnet);
