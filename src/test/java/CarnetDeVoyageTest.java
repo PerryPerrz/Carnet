@@ -1,5 +1,3 @@
-package carnet.tests;
-
 import carnet.exceptions.PageInexistanteException;
 import carnet.exceptions.SupprimerPageDePresentationException;
 import carnet.model.CarnetDeVoyage;

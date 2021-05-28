@@ -29,7 +29,7 @@ import java.util.Optional;
  * La classe PanneauDeControleMenu
  */
 public class PanneauDeControleMenu implements Observateur {
-    private CarnetDeVoyage carnet;
+    private final CarnetDeVoyage carnet;
 
     @FXML
     BorderPane menu;  //On récupère la VueMenu
@@ -77,7 +77,7 @@ public class PanneauDeControleMenu implements Observateur {
         CarnetDeVoyage carnet = new CarnetDeVoyage();
         TailleComposants tc = TailleComposants.getInstance();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../vues/VueMenu.fxml"));
+        loader.setLocation(getClass().getResource("/vues/VueMenu.fxml"));
         PanneauDeControleMenu pdcM = new PanneauDeControleMenu(carnet);
         PanneauDeControlePageDePresentation pdcP = new PanneauDeControlePageDePresentation(carnet);
         PanneauDeControlePageDuCarnet pdcC = new PanneauDeControlePageDuCarnet(carnet);
@@ -98,7 +98,7 @@ public class PanneauDeControleMenu implements Observateur {
             primaryStage.setScene(new Scene(root, tc.getWindowX(), tc.getWindowY()));
             primaryStage.show();
 
-            primaryStage.getIcons().add(new Image("carnet/ressources/carnet.png"));
+            primaryStage.getIcons().add(new Image("images/carnet.png"));
 
             //Animation
             new FadeIn(root).play();
@@ -112,7 +112,7 @@ public class PanneauDeControleMenu implements Observateur {
      * Procédure renommer
      */
     public void renommer() {
-        if(carnet.siLaPageActuelleEstLaPageDePresentation()) { //Si on veut renommer le titre de la page actuelle
+        if (carnet.siLaPageActuelleEstLaPageDePresentation()) { //Si on veut renommer le titre de la page actuelle
             TextInputDialog dialog = new TextInputDialog("Renommer le carnet");
             dialog.setTitle("Renommer le carnet");
             dialog.setHeaderText("Entrez le nouveau nom :");
@@ -120,8 +120,7 @@ public class PanneauDeControleMenu implements Observateur {
 
             Optional<String> res = dialog.showAndWait();
             res.ifPresent(this.carnet::renommerCarnet);
-        }
-        else {
+        } else {
             TextInputDialog dialog = new TextInputDialog("Renommer la page");
             dialog.setTitle("Renommer la page");
             dialog.setHeaderText("Entrez le nouveau nom :");
@@ -221,7 +220,7 @@ public class PanneauDeControleMenu implements Observateur {
                 primaryStage.setScene(new Scene(root, tc.getWindowX(), tc.getWindowY()));
                 primaryStage.show();
 
-                primaryStage.getIcons().add(new Image("carnet/ressources/carnet.png"));
+                primaryStage.getIcons().add(new Image("images/carnet.png"));
 
                 //Animation
                 new FadeIn(root).play();
@@ -240,6 +239,13 @@ public class PanneauDeControleMenu implements Observateur {
             pt.setOnFinished(Event -> dialog.close());
             pt.play();
         }
+    }
+
+    /**
+     * Procédure qui copie une page du carnet
+     */
+    public void copier() {
+
     }
 
     @Override

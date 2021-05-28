@@ -17,17 +17,19 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edition">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#renommer" text="Renommer" />
-                        <MenuItem mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
+                        <MenuItem mnemonicParsing="false" onAction="#renommer" text="Renommer"/>
+                        <MenuItem mnemonicParsing="false" onAction="#supprimer" text="Supprimer"/>
+                        <MenuItem mnemonicParsing="false" onAction="#copier" text="Copier"/>
                     </items>
-          </Menu>
+                </Menu>
                 <Menu mnemonicParsing="false" text="Quitter">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#quitter" text="Quitter" />
-               </items></Menu>
-        </menus>
-      </MenuBar>
-   </top>
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#quitter" text="Quitter"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
     <center>
         <fx:include fx:id="pageDuCarnet" source="VuePageDuCarnet.fxml"/>
         <fx:include fx:id="pageDePresentation" source="VuePageDePresentation.fxml"/>

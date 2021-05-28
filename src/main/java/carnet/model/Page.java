@@ -1,7 +1,6 @@
 package carnet.model;
 
 import carnet.outil.FabriqueNumeroPage;
-import javafx.scene.image.Image;
 
 /**
  * La classe Page

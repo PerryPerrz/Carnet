@@ -21,12 +21,12 @@ public class Main extends Application {
         CarnetDeVoyage carnet = new CarnetDeVoyage();
         TailleComposants tc = TailleComposants.getInstance();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("vues/VueMenu.fxml"));
+        loader.setLocation(getClass().getResource("/vues/VueMenu.fxml"));
         PanneauDeControleMenu pdcM = new PanneauDeControleMenu(carnet);
         PanneauDeControlePageDePresentation pdcP = new PanneauDeControlePageDePresentation(carnet);
         PanneauDeControlePageDuCarnet pdcC = new PanneauDeControlePageDuCarnet(carnet);
 
-        primaryStage.getIcons().add(new Image("carnet/ressources/carnet.png"));
+        primaryStage.getIcons().add(new Image(String.valueOf(getClass().getResource("/images/carnet.png"))));
 
         loader.setControllerFactory(ic -> {
             if (ic.equals(carnet.panneauDeControle.PanneauDeControleMenu.class)) return pdcM;

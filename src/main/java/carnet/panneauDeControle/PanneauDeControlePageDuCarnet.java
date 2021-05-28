@@ -6,6 +6,9 @@ import carnet.exceptions.ImageNotLoadedException;
 import carnet.exceptions.PageInexistanteException;
 import carnet.model.CarnetDeVoyage;
 import carnet.outil.TailleComposants;
+import com.sothawo.mapjfx.Coordinate;
+import com.sothawo.mapjfx.MapView;
+import com.sothawo.mapjfx.Marker;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -17,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import javafx.util.Duration;
@@ -46,6 +50,8 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
     private Button boutonSauvegarde;
     @FXML
     private Button home;
+    @FXML
+    private VBox Vbox;
 
     /**
      * Constructeur de la classe PanneauDeControlePageDuCarnet
@@ -211,6 +217,28 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
         this.carnet.backToPageDePresentation();
     }
 
+    @FXML
+    void initialize() {
+        Coordinate coord = new Coordinate(50.03639, 19.17578);
+
+        Marker mark = Marker.createProvided(Marker.Provided.GREEN);
+        mark.setPosition(coord).setVisible(true);
+
+        MapView mapView = new MapView();
+
+        mapView.initializedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                mapView.setCenter(coord);
+                mapView.addMarker(mark);
+            }
+        });
+
+        mapView.initialize();
+        mapView.setMinSize(100, 100);
+        mapView.setMaxSize(350, 375);
+        this.Vbox.getChildren().add(mapView);
+    }
+
     @Override
     public void reagir() {
         TailleComposants tc = TailleComposants.getInstance();
@@ -219,8 +247,8 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
             this.zoneDeTexte.setText(this.carnet.getPageDuCarnet().getTexte());
             try {
                 titre.setText(this.carnet.getPageDuCarnetAvecUnNumero(this.carnet.getPageActuelle()).getTitre());
-                if(this.carnet.getPageDuCarnet().getPathImagePage().equals("")) {
-                    Image image = new Image("carnet/ressources/image.png");
+                if (this.carnet.getPageDuCarnet().getPathImagePage().equals("")) {
+                    Image image = new Image("images/image.png");
                     this.carnet.getPageDuCarnet().setPathImagePage(image.getUrl().replace("file:", "")); //J'utilise l'image pour récuperer le chemin absolu
                 }
                 this.imagePageDuCarnet.setImage(new Image(new FileInputStream(this.carnet.getPageDuCarnet().getPathImagePage())));
@@ -229,25 +257,25 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
             }
         }
 
-        ImageView image = new ImageView(new Image("carnet/ressources/left.png"));
+        ImageView image = new ImageView(new Image("images/left.png"));
         image.setFitWidth(tc.getTailleBouton());
         image.setFitWidth(tc.getTailleBouton());
         image.setPreserveRatio(true);
         this.boutonPrec.setGraphic(image);
 
-        ImageView image2 = new ImageView(new Image("carnet/ressources/right.png"));
+        ImageView image2 = new ImageView(new Image("images/right.png"));
         image2.setFitWidth(tc.getTailleBouton());
         image2.setFitWidth(tc.getTailleBouton());
         image2.setPreserveRatio(true);
         this.boutonSuiv.setGraphic(image2);
 
-        ImageView image3 = new ImageView(new Image("carnet/ressources/file.png"));
+        ImageView image3 = new ImageView(new Image("images/file.png"));
         image3.setFitWidth(tc.getTailleBouton());
         image3.setFitWidth(tc.getTailleBouton());
         image3.setPreserveRatio(true);
         this.boutonSauvegarde.setGraphic(image3);
 
-        ImageView image4 = new ImageView(new Image("carnet/ressources/home.png"));
+        ImageView image4 = new ImageView(new Image("images/home.png"));
         image4.setFitWidth(tc.getTailleBouton());
         image4.setFitWidth(tc.getTailleBouton());
         image4.setPreserveRatio(true);
