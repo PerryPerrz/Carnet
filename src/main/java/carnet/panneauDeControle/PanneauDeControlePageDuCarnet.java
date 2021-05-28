@@ -219,10 +219,23 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
 
     @FXML
     void initialize() {
-        Coordinate coord = new Coordinate(50.03639, 19.17578);
+        Coordinate coord = new Coordinate(48.66514303712896, 6.161092511379647);
 
-        Marker mark = Marker.createProvided(Marker.Provided.GREEN);
+        Marker mark = Marker.createProvided(Marker.Provided.RED);
         mark.setPosition(coord).setVisible(true);
+
+        TailleComposants tc = TailleComposants.getInstance();
+        Button bouton = new Button();
+        bouton.setOnAction(e->mark.setVisible(!mark.getVisible()));
+        bouton.setPrefWidth(tc.getTailleBouton());
+        bouton.setPrefHeight(tc.getTailleBouton());
+        bouton.setStyle("-fx-background-color:transparent;");
+
+        ImageView image = new ImageView(new Image("images/carnet.png"));
+        image.setFitWidth(tc.getTailleBouton());
+        image.setFitWidth(tc.getTailleBouton());
+        image.setPreserveRatio(true);
+        bouton.setGraphic(image);
 
         MapView mapView = new MapView();
 
@@ -234,9 +247,9 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
         });
 
         mapView.initialize();
-        mapView.setMinSize(100, 100);
-        mapView.setMaxSize(350, 375);
-        this.Vbox.getChildren().add(mapView);
+        mapView.setMinSize(319, 147);
+        mapView.setMaxSize(319, 147);
+        this.Vbox.getChildren().addAll(mapView,bouton);
     }
 
     @Override
