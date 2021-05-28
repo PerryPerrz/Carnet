@@ -308,7 +308,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
             try {
                 titre.setText(this.carnet.getPageDuCarnetAvecUnNumero(this.carnet.getPageActuelle()).getTitre());
                 if (this.carnet.getPageDuCarnet().getPathImagePage().equals("")) {
-                    Image image = new Image("images/image.png");
+                    Image image = new Image("images/image2.png");
                     this.carnet.getPageDuCarnet().setPathImagePage(image.getUrl().replace("file:", "")); //J'utilise l'image pour récuperer le chemin absolu
                 }
                 this.imagePageDuCarnet.setImage(new Image(new FileInputStream(this.carnet.getPageDuCarnet().getPathImagePage())));
