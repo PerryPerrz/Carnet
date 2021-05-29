@@ -4,7 +4,6 @@ import carnet.designPattern.Observateur;
 import carnet.exceptions.CancelImageException;
 import carnet.exceptions.FormatCoordonneesException;
 import carnet.exceptions.ImageNotLoadedException;
-import carnet.exceptions.PageInexistanteException;
 import carnet.model.CarnetDeVoyage;
 import carnet.outil.TailleComposants;
 import com.sothawo.mapjfx.Coordinate;
@@ -241,13 +240,13 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
         boutonMarker.setPrefHeight(tc.getTailleBouton());
         boutonCoordonnees.setStyle("-fx-background-color:transparent;");
 
-        ImageView image = new ImageView(new Image("images/pointeur.png"));
+        ImageView image = new ImageView(new Image(String.valueOf(getClass().getResource("/images/pointeur.png"))));
         image.setFitWidth(tc.getTailleBouton());
         image.setFitWidth(tc.getTailleBouton());
         image.setPreserveRatio(true);
         boutonMarker.setGraphic(image);
 
-        ImageView image2 = new ImageView(new Image("images/boussole.png"));
+        ImageView image2 = new ImageView(new Image(String.valueOf(getClass().getResource("/images/boussole.png"))));
         image2.setFitWidth(tc.getTailleBouton());
         image2.setFitWidth(tc.getTailleBouton());
         image2.setPreserveRatio(true);
@@ -311,37 +310,38 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
             this.mark.setPosition(coord);
             this.mapView.setCenter(coord);
 
-            try {
-                titre.setText(this.carnet.getPageDuCarnetAvecUnNumero(this.carnet.getPageActuelle()).getTitre());
-                if (this.carnet.getPageDuCarnet().getPathImagePage().equals("")) {
-                    Image image = new Image("images/image2.png");
-                    this.carnet.getPageDuCarnet().setPathImagePage(image.getUrl().replace("file:", "")); //J'utilise l'image pour récuperer le chemin absolu
+            if (this.carnet.getPageDuCarnet().getPathImagePage().equals("")) {
+                this.imagePageDuCarnet.setImage(new Image(String.valueOf(this.getClass().getResource("/images/image2.png"))));
+            } else {
+                try {
+                    Image image = new Image(new FileInputStream(this.carnet.getPageDuCarnet().getPathImagePage()));
+                    this.imagePageDuCarnet.setImage(image);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
-                this.imagePageDuCarnet.setImage(new Image(new FileInputStream(this.carnet.getPageDuCarnet().getPathImagePage())));
-            } catch (FileNotFoundException | PageInexistanteException e) {
-                e.printStackTrace();
             }
+            this.imagePageDuCarnet.setPreserveRatio(true);
         }
 
-        ImageView image = new ImageView(new Image("images/left.png"));
+        ImageView image = new ImageView(new Image(String.valueOf(getClass().getResource("/images/left.png"))));
         image.setFitWidth(tc.getTailleBouton());
         image.setFitWidth(tc.getTailleBouton());
         image.setPreserveRatio(true);
         this.boutonPrec.setGraphic(image);
 
-        ImageView image2 = new ImageView(new Image("images/right.png"));
+        ImageView image2 = new ImageView(new Image(String.valueOf(getClass().getResource("/images/right.png"))));
         image2.setFitWidth(tc.getTailleBouton());
         image2.setFitWidth(tc.getTailleBouton());
         image2.setPreserveRatio(true);
         this.boutonSuiv.setGraphic(image2);
 
-        ImageView image3 = new ImageView(new Image("images/file.png"));
+        ImageView image3 = new ImageView(new Image(String.valueOf(getClass().getResource("/images/file.png"))));
         image3.setFitWidth(tc.getTailleBouton());
         image3.setFitWidth(tc.getTailleBouton());
         image3.setPreserveRatio(true);
         this.boutonSauvegarde.setGraphic(image3);
 
-        ImageView image4 = new ImageView(new Image("images/home.png"));
+        ImageView image4 = new ImageView(new Image(String.valueOf(getClass().getResource("/images/home.png"))));
         image4.setFitWidth(tc.getTailleBouton());
         image4.setFitWidth(tc.getTailleBouton());
         image4.setPreserveRatio(true);

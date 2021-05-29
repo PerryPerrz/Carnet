@@ -279,30 +279,32 @@ public class PanneauDeControlePageDePresentation implements Observateur {
                 this.dateFin.getEditor().setText((new SimpleDateFormat("dd/MM/yyyy").format(carnet.getPageDePresentation().getDateFin())));
             this.participants.setText(this.carnet.getParticipants());
             this.auteur.setText(this.carnet.getPageDePresentation().getAuteur());
-            try {
-                if (this.carnet.getPageDePresentation().getPathImagePage().equals("")) {
-                    Image image = new Image("images/image.png");
-                    this.carnet.getPageDePresentation().setPathImagePage(image.getUrl().replace("file:", "")); //J'utilise l'image pour récuperer le chemin absolu
+            if (this.carnet.getPageDePresentation().getPathImagePage().equals("")) {
+                this.imagePageDePresentation.setImage(new Image(String.valueOf(this.getClass().getResource("/images/image.png"))));
+            } else {
+                try {
+                    Image image = new Image(new FileInputStream(this.carnet.getPageDePresentation().getPathImagePage()));
+                    this.imagePageDePresentation.setImage(image);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
-                this.imagePageDePresentation.setImage(new Image(new FileInputStream(this.carnet.getPageDePresentation().getPathImagePage()))); //On a un chemin absolu, new Image requirt un chemin relatif, donc j'utilise un FileInputStream en intermédiaire.
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             }
+            this.imagePageDePresentation.setPreserveRatio(true);
         }
 
-        ImageView image = new ImageView(new Image("images/right.png"));
+        ImageView image = new ImageView(new Image(String.valueOf(getClass().getResource("/images/right.png"))));
         image.setFitWidth(tc.getTailleBouton());
         image.setFitWidth(tc.getTailleBouton());
         image.setPreserveRatio(true);
         this.boutonSuiv.setGraphic(image);
 
-        ImageView image2 = new ImageView(new Image("images/file.png"));
+        ImageView image2 = new ImageView(new Image(String.valueOf(getClass().getResource("/images/file.png"))));
         image2.setFitWidth(tc.getTailleBouton());
         image2.setFitWidth(tc.getTailleBouton());
         image2.setPreserveRatio(true);
         this.boutonSauvegarde.setGraphic(image2);
 
-        ImageView image3 = new ImageView(new Image("images/last.png"));
+        ImageView image3 = new ImageView(new Image(String.valueOf(getClass().getResource("/images/last.png"))));
         image3.setFitWidth(tc.getTailleBouton());
         image3.setFitWidth(tc.getTailleBouton());
         image3.setPreserveRatio(true);

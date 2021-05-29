@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carnet.panneauDeControle.PanneauDeControlePageDuCarnet">
@@ -37,8 +38,15 @@
                         </BorderPane>
                         <VBox fx:id="Vbox" alignment="CENTER" prefHeight="66.0" prefWidth="319.0">
                             <children>
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="2.0" style="-fx-background-color: null;" />
-                                <ImageView fx:id="imagePageDuCarnet" fitHeight="147.0" fitWidth="319.0" onDragDropped="#onDragDropped" onDragOver="#onDragOver" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
+                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="2.0"
+                                        style="-fx-background-color: null;"/>
+                                <ImageView fx:id="imagePageDuCarnet" fitHeight="147.0" fitWidth="319.0"
+                                           onDragDropped="#onDragDropped" onDragOver="#onDragOver"
+                                           onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/image2.png"/>
+                                    </image>
+                                </ImageView>
                             </children>
                         </VBox>
                     </children>

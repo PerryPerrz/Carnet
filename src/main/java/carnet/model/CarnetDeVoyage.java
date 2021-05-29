@@ -7,6 +7,7 @@ import carnet.exceptions.PageInexistanteException;
 import carnet.exceptions.SupprimerPageDePresentationException;
 import carnet.sauvegarde.SauvegardeDuCarnet;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -35,9 +36,9 @@ public class CarnetDeVoyage extends SujetObserve {
      *
      * @throws FichierDeSauvegardeException
      */
-    public void enregistrerCarnet() throws FichierDeSauvegardeException {
+    public void enregistrerCarnet(File DossierDeSauvegarde, String nomDuFichierDeSauvegarde) throws FichierDeSauvegardeException {
         SauvegardeDuCarnet sauvDuCar = SauvegardeDuCarnet.getInstance();
-        sauvDuCar.sauvegardeDuCarnet(this);
+        sauvDuCar.sauvegardeDuCarnet(this, DossierDeSauvegarde, nomDuFichierDeSauvegarde);
     }
 
     /**

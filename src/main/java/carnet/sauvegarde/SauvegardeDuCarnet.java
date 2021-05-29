@@ -32,13 +32,13 @@ public class SauvegardeDuCarnet {
      *
      * @param carnet un carnet à sauvegarder
      */
-    public void sauvegardeDuCarnet(CarnetDeVoyage carnet) {
+    public void sauvegardeDuCarnet(CarnetDeVoyage carnet, File dossierDeSauvegarde, String nomDeLaSauvegarde) {
         Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
         String sauvegarde = gson.toJson(carnet, CarnetDeVoyage.class);
 
         //On sauvegarde les informations dans un fichier json.
         try {
-            FileWriter flot = new FileWriter("src/main/java/carnet/sauvegarde/sauvegardeCarnet.json");
+            FileWriter flot = new FileWriter(dossierDeSauvegarde.getPath() + "/" + nomDeLaSauvegarde + ".json");
             PrintWriter flotFiltre = new PrintWriter(flot);
             flotFiltre.println(sauvegarde);
             flotFiltre.close();
@@ -53,9 +53,9 @@ public class SauvegardeDuCarnet {
      * @return Un carnet de voyage
      * @throws FichierDeSauvegardeException un FichierDeSauvegardeException
      */
-    public CarnetDeVoyage retranscriptionDuCarnet() throws FichierDeSauvegardeException {
+    public CarnetDeVoyage retranscriptionDuCarnet(File fichierDeSauvegarde) throws FichierDeSauvegardeException {
         try {
-            FileReader flot = new FileReader("src/main/java/carnet/sauvegarde/sauvegardeCarnet.json");
+            FileReader flot = new FileReader(fichierDeSauvegarde);
             BufferedReader buff = new BufferedReader(flot);
             String ligneLue = buff.readLine();
             StringBuilder str = new StringBuilder(90);
@@ -82,7 +82,7 @@ public class SauvegardeDuCarnet {
 
         //On sauvegarde les informations dans un fichier json.
         try {
-            FileWriter flot = new FileWriter("src/main/java/carnet/sauvegarde/sauvegardePage.json");
+            FileWriter flot = new FileWriter("/tmp/sauvegardePage.json");
             PrintWriter flotFiltre = new PrintWriter(flot);
             flotFiltre.println(sauvegarde);
             flotFiltre.close();
@@ -99,7 +99,7 @@ public class SauvegardeDuCarnet {
      */
     public PageDuCarnet retranscriptionDUnePageDuCarnet() throws FichierDeSauvegardeException {
         try {
-            FileReader flot = new FileReader("src/main/java/carnet/sauvegarde/sauvegardePage.json");
+            FileReader flot = new FileReader("/tmp/sauvegardePage.json");
             BufferedReader buff = new BufferedReader(flot);
             String ligneLue = buff.readLine();
             StringBuilder str = new StringBuilder(90);

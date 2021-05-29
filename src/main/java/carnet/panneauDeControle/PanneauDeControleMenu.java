@@ -21,9 +21,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -65,19 +69,32 @@ public class PanneauDeControleMenu implements Observateur {
      * Procédure enregistrer
      */
     public void enregistrer() {
-        try {
-            carnet.enregistrerCarnet();
-        } catch (FichierDeSauvegardeException fDSe) {
-            Alert dialog = new Alert(Alert.AlertType.ERROR);
-            dialog.setTitle("FichierDeSauvegardeException");
-            dialog.setHeaderText("Impossible de créer ou charger le fichier de sauvegarde");
-            dialog.setContentText("Erreur : un problème à été rencontré lors de la sauvegarde\n" + "Veuillez rééssayer ! ");
-            dialog.show();
-            //Le chronomètre
-            PauseTransition pt = new PauseTransition(Duration.seconds(5));
-            pt.setOnFinished(Event -> dialog.close());
-            pt.play();
-        }
+        Window mainStage = this.menu.getScene().getWindow();
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Choisir le répértoire de sauvegarde");
+        File selectedDir = directoryChooser.showDialog(mainStage);
+
+        TextInputDialog dialog = new TextInputDialog("sauvegardeDuCarnet");
+        dialog.setTitle("Nom du fichier de sauvegarde");
+        dialog.setHeaderText("Entrez le nom du fichier de sauvegarde : ");
+        dialog.setContentText("Nom de la sauvegarde : ");
+
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(s -> {
+            try {
+                this.carnet.enregistrerCarnet(selectedDir, s);
+            } catch (FichierDeSauvegardeException e) {
+                Alert dialog2 = new Alert(Alert.AlertType.ERROR);
+                dialog2.setTitle("FichierDeSauvegardeException");
+                dialog2.setHeaderText("Impossible de créer ou charger le fichier de sauvegarde");
+                dialog2.setContentText("Erreur : un problème à été rencontré lors de la sauvegarde\n" + "Veuillez rééssayer ! ");
+                dialog2.show();
+                //Le chronomètre
+                PauseTransition pt = new PauseTransition(Duration.seconds(5));
+                pt.setOnFinished(Event -> dialog2.close());
+                pt.play();
+            }
+        });
     }
 
     /**
@@ -109,7 +126,7 @@ public class PanneauDeControleMenu implements Observateur {
             primaryStage.setScene(new Scene(root, tc.getWindowX(), tc.getWindowY()));
             primaryStage.show();
 
-            primaryStage.getIcons().add(new Image("images/carnet.png"));
+            primaryStage.getIcons().add(new Image(String.valueOf(getClass().getResource("/images/carnet.png"))));
 
             //Animation
             new FadeIn(root).play();
@@ -208,7 +225,15 @@ public class PanneauDeControleMenu implements Observateur {
         SauvegardeDuCarnet sauvegarde = SauvegardeDuCarnet.getInstance();
         TailleComposants tc = TailleComposants.getInstance();
         try {
-            CarnetDeVoyage carnet = sauvegarde.retranscriptionDuCarnet();
+            Window mainStage = this.menu.getScene().getWindow();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Ouvrir le fichier de sauvegarde");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sauvegarde", "*.json"));
+            File selectedFile = fileChooser.showOpenDialog(mainStage);
+            if (selectedFile == null)
+                throw new FichierDeSauvegardeException("Impossible de charger un carnet");
+
+            CarnetDeVoyage carnet = sauvegarde.retranscriptionDuCarnet(selectedFile);
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/vues/VueMenu.fxml"));
             PanneauDeControleMenu pdcM = new PanneauDeControleMenu(carnet);
@@ -231,7 +256,7 @@ public class PanneauDeControleMenu implements Observateur {
                 primaryStage.setScene(new Scene(root, tc.getWindowX(), tc.getWindowY()));
                 primaryStage.show();
 
-                primaryStage.getIcons().add(new Image("images/carnet.png"));
+                primaryStage.getIcons().add(new Image(String.valueOf(getClass().getResource("/images/carnet.png"))));
 
                 //Animation
                 new FadeIn(root).play();
