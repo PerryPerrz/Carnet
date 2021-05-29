@@ -34,7 +34,9 @@ public class CarnetDeVoyage extends SujetObserve {
     /**
      * Procédure qui sauvegarde le carnet
      *
-     * @throws FichierDeSauvegardeException
+     * @param DossierDeSauvegarde      le dossier de sauvegarde
+     * @param nomDuFichierDeSauvegarde le nom du fichier de sauvegarde
+     * @throws FichierDeSauvegardeException le fichier de sauvegarde exception
      */
     public void enregistrerCarnet(File DossierDeSauvegarde, String nomDuFichierDeSauvegarde) throws FichierDeSauvegardeException {
         SauvegardeDuCarnet sauvDuCar = SauvegardeDuCarnet.getInstance();
@@ -75,7 +77,7 @@ public class CarnetDeVoyage extends SujetObserve {
      * Procédure qui supprime une page du carnet
      *
      * @param numPageASupprimer numéro de la page à supprimer
-     * @throws CarnetException, throw SupprimerPageDePresentationException & PageInexistanteException
+     * @throws CarnetException ,throw SupprimerPageDePresentationException & PageInexistanteException
      */
     public void supprimerPage(int numPageASupprimer) throws CarnetException {
         PageDuCarnet pageASupprimer;
@@ -188,7 +190,7 @@ public class CarnetDeVoyage extends SujetObserve {
     /**
      * Iterator page du carnet iterator.
      *
-     * @return the iterator
+     * @return l'iterateur
      */
     public Iterator<PageDuCarnet> iteratorPageDuCarnet() {
         return this.pagesDuCarnet.iterator();
@@ -197,7 +199,7 @@ public class CarnetDeVoyage extends SujetObserve {
     /**
      * Iterator participants du carnet
      *
-     * @return the iterator
+     * @return l'iterateur
      */
     public Iterator<String> iteratorParticipantsDuCarnet() {
         return this.participants.iterator();
@@ -247,6 +249,11 @@ public class CarnetDeVoyage extends SujetObserve {
         return this.getPageActuelle() == this.getPageDePresentation().getNumeroPage();
     }
 
+    /**
+     * Fonction qui retourne les participants du carnet
+     *
+     * @return un string, la liste de participants
+     */
     public String getParticipants() {
         StringBuilder str = new StringBuilder(20);
         for (String s : this.participants) {
@@ -257,10 +264,18 @@ public class CarnetDeVoyage extends SujetObserve {
         return str.toString();
     }
 
+    /**
+     * Fonction qui renvoie vrai s'il y a une page à gauche
+     *
+     * @return un booléen
+     */
     public boolean isToTheLeft() {
         return toTheLeft;
     }
 
+    /**
+     * Procédure qui nettoie les participants
+     */
     public void nettoyerLesParticipants() {
         this.participants.clear();
     }
@@ -274,13 +289,18 @@ public class CarnetDeVoyage extends SujetObserve {
     }
 
     /**
-     * Procédure qui remet l'indice de la page sur la première page, soit la page de présentation
+     * Procédure qui remet l'indice de la page sur la dernière page créée
      */
     public void goToLastPage() {
         this.pageActuelle = this.pagesDuCarnet.size() - 1;
         notifierObservateurs();
     }
 
+    /**
+     * Procédure qui retranscrit les informations d'une page du carnet
+     *
+     * @param page the page
+     */
     public void retranscriptionDesInformationsDUnePageDuCarnet(PageDuCarnet page) {
         this.getPageDuCarnet().setTitre(page.getTitre());
         this.getPageDuCarnet().setTexte(page.getTexte());

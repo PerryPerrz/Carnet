@@ -6,6 +6,7 @@ import carnet.outil.FabriqueNumeroPage;
  * La classe Page
  */
 public abstract class Page {
+
     /**
      * Le titre d'une page
      */
@@ -66,7 +67,7 @@ public abstract class Page {
     /**
      * Procédure qui définit l'indice de la page
      *
-     * @param indicePage, l'indice de la page
+     * @param indicePage l'indice de la page
      */
     public void setIndicePage(int indicePage) {
         this.indicePage = indicePage;
@@ -81,10 +82,20 @@ public abstract class Page {
         return titre;
     }
 
+    /**
+     * Fonction qui retourne l'url de l'image de la page
+     *
+     * @return l'url de l'image de la page
+     */
     public String getPathImagePage() {
         return pathImagePage;
     }
 
+    /**
+     * Procédure qui définit l'url de l'image de la page
+     *
+     * @param pathImagePage l'url de l'image de la page
+     */
     public void setPathImagePage(String pathImagePage) {
         this.pathImagePage = pathImagePage;
     }

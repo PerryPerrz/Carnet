@@ -8,10 +8,16 @@ import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * La classe CarnetDeVoyageTest
+ */
 class CarnetDeVoyageTest {
     private CarnetDeVoyage car2voy;
     private FabriqueNumeroPage fabrik;
 
+    /**
+     * Le setUp
+     */
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
         fabrik = FabriqueNumeroPage.getInstance();
@@ -19,6 +25,9 @@ class CarnetDeVoyageTest {
         car2voy = new CarnetDeVoyage();
     }
 
+    /**
+     * Ajouter page.
+     */
     @org.junit.jupiter.api.Test
     void ajouterPage() {
         assertEquals(car2voy.getNbPagesDuCarnet(), 1);
@@ -29,6 +38,9 @@ class CarnetDeVoyageTest {
         assertEquals(car2voy.getNbPagesDuCarnet(), 11);
     }
 
+    /**
+     * Supprimer page.
+     */
     @org.junit.jupiter.api.Test
     void supprimerPage() {
         assertEquals(car2voy.getNbPagesDuCarnet(), 1);
@@ -44,6 +56,9 @@ class CarnetDeVoyageTest {
         assertEquals(car2voy.getNbPagesDuCarnet(), 7);
     }
 
+    /**
+     * Page precedente.
+     */
     @org.junit.jupiter.api.Test
     void pagePrecedente() {
         assertEquals(car2voy.getNbPagesDuCarnet(), 1);
@@ -66,6 +81,9 @@ class CarnetDeVoyageTest {
         }
     }
 
+    /**
+     * Page suivante.
+     */
     @org.junit.jupiter.api.Test
     void pageSuivante() {
         assertEquals(car2voy.getNbPagesDuCarnet(), 1);
@@ -78,6 +96,9 @@ class CarnetDeVoyageTest {
         assertDoesNotThrow(() -> car2voy.getPageDuCarnetAvecUnNumero(2));
     }
 
+    /**
+     * Raffraichir indices.
+     */
     @org.junit.jupiter.api.Test
     void raffraichirIndices() {
         //On appel la fonction raffraichir dans la fonction supprimer, il n'est donc pas nécessaire de refaire un autre appel à la fonction raffraichir

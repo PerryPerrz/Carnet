@@ -30,7 +30,9 @@ public class SauvegardeDuCarnet {
     /**
      * Procédure qui sauvegarde le carnet dans un fichier de sauvegarde
      *
-     * @param carnet un carnet à sauvegarder
+     * @param carnet              un carnet à sauvegarder
+     * @param dossierDeSauvegarde le dossier de sauvegarde
+     * @param nomDeLaSauvegarde   le nom de la sauvegarde
      */
     public void sauvegardeDuCarnet(CarnetDeVoyage carnet, File dossierDeSauvegarde, String nomDeLaSauvegarde) {
         Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
@@ -50,8 +52,9 @@ public class SauvegardeDuCarnet {
     /**
      * Fonction qui retranscrit les données du fichier de sauvegarde dans un carnet
      *
+     * @param fichierDeSauvegarde le fichier de sauvegarde
      * @return Un carnet de voyage
-     * @throws FichierDeSauvegardeException un FichierDeSauvegardeException
+     * @throws FichierDeSauvegardeException FichierDeSauvegardeException
      */
     public CarnetDeVoyage retranscriptionDuCarnet(File fichierDeSauvegarde) throws FichierDeSauvegardeException {
         try {
@@ -95,7 +98,7 @@ public class SauvegardeDuCarnet {
      * Fonction qui retranscrit les informations d'une page du carnet
      *
      * @return La page retranscrite
-     * @throws FichierDeSauvegardeException un FichierDeSauvegardeException
+     * @throws FichierDeSauvegardeException FichierDeSauvegardeException
      */
     public PageDuCarnet retranscriptionDUnePageDuCarnet() throws FichierDeSauvegardeException {
         try {

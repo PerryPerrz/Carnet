@@ -37,21 +37,39 @@ import java.util.Optional;
 public class PanneauDeControleMenu implements Observateur {
     private final CarnetDeVoyage carnet;
 
+    /**
+     * Le menu
+     */
     @FXML
     BorderPane menu;  //On récupère la VueMenu
 
+    /**
+     * La page de présentation
+     */
     @FXML
     BorderPane pageDePresentation; //On récupère la VuePageDePresentation
 
+    /**
+     * La page du carnet
+     */
     @FXML
     BorderPane pageDuCarnet; //On récupère la VuePageDuCarnet
 
+    /**
+     * L'item supprimer
+     */
     @FXML
     MenuItem supprimer; //On récupère le menuItem supprimer
 
+    /**
+     * l'item copier
+     */
     @FXML
     MenuItem copier; //On récupère le menuItem copier
 
+    /**
+     * l'item coller
+     */
     @FXML
     MenuItem coller; //On récupère le menuItem coller
 
@@ -188,6 +206,9 @@ public class PanneauDeControleMenu implements Observateur {
         }
     }
 
+    /**
+     * Procédure quitter
+     */
     public void quitter() {
         Platform.exit();
     }

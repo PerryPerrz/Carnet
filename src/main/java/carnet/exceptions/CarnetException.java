@@ -6,7 +6,7 @@ package carnet.exceptions;
 public class CarnetException extends Exception {
 
     /**
-     * Constructeur de la classe abstraite des exceptions.
+     * Constructeur de la classe abstraite des exceptions
      *
      * @param message le message
      */

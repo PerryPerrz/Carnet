@@ -21,16 +21,16 @@ public class TailleComposants {
     /**
      * Fonction permettant de réaliser une instance du singleton TailleComposants.
      *
-     * @return instance
+     * @return instance instance
      */
     public static TailleComposants getInstance() {
         return instance;
     }
 
     /**
-     * Fonction qui retourne la taille du bouton permettant d'ajouter des activités.
+     * Fonction qui retourne la taille des boutons
      *
-     * @return taille bouton
+     * @return la taille des boutons
      */
     public int getTailleBouton() {
         return tailleBouton;
@@ -39,7 +39,7 @@ public class TailleComposants {
     /**
      * Fonction qui retourne la largeur de la fenêtre de l'application.
      *
-     * @return window x
+     * @return la largeur de la fenêtre de l'application.
      */
     public int getWindowX() {
         return windowX;
@@ -48,7 +48,7 @@ public class TailleComposants {
     /**
      * Fonction qui retourne la hauteur de la fenêtre de l'application.
      *
-     * @return window y
+     * @return la hauteur de la fenêtre de l'application.
      */
     public int getWindowY() {
         return windowY;

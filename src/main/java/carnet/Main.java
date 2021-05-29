@@ -13,6 +13,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * La classe Main
+ */
 public class Main extends Application {
 
     @Override
@@ -47,6 +50,11 @@ public class Main extends Application {
         carnet.notifierObservateurs();
     }
 
+    /**
+     * Le point d'entrée de l'application
+     *
+     * @param args les arguments d'entrée
+     */
     public static void main(String[] args) {
         launch(args);
     }

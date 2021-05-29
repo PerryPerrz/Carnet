@@ -44,6 +44,7 @@ public class PageDuCarnet extends Page {
 
     /**
      * Fonction qui retourne la latitude de la MapView d'une page
+     *
      * @return un entier, la latitude
      */
     public Double getLatitude() {
@@ -52,7 +53,8 @@ public class PageDuCarnet extends Page {
 
     /**
      * Procédure qui définit la latitude d'une page
-     * @param latitude
+     *
+     * @param latitude la latitude
      */
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
@@ -60,6 +62,7 @@ public class PageDuCarnet extends Page {
 
     /**
      * Fonction qui retourne la longitude de la MapView d'une page
+     *
      * @return un entier, la longitude
      */
     public Double getLongitude() {
@@ -68,7 +71,8 @@ public class PageDuCarnet extends Page {
 
     /**
      * Procédure qui définit la longitude d'une page
-     * @param longitude
+     *
+     * @param longitude la longitude
      */
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
@@ -76,7 +80,9 @@ public class PageDuCarnet extends Page {
 
     /**
      * Procédure qui récupère un string, et découpe celui-ci pour séparer la lattitude et la longitude
-     * @param coord
+     *
+     * @param coord les coordonnées
+     * @throws FormatCoordonneesException FormatCoordonneesException
      */
     public void changerLesCoordonneesDuCurseur(String coord) throws FormatCoordonneesException{
         if(!coord.contains(","))

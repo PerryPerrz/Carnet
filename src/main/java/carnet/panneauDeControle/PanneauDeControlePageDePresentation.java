@@ -51,6 +51,8 @@ public class PanneauDeControlePageDePresentation implements Observateur {
 
     /**
      * Constructeur de la classe PanneauDeControlePageDePresentation
+     *
+     * @param car2voy le carnet
      */
     public PanneauDeControlePageDePresentation(CarnetDeVoyage car2voy) {
         this.carnet = car2voy;
@@ -166,6 +168,11 @@ public class PanneauDeControlePageDePresentation implements Observateur {
         this.ajouterParticipants();
     }
 
+    /**
+     * Procédure onDragDropped utilisée lors de la gestion du drag and drop de l'image
+     *
+     * @param event l'event
+     */
     public void onDragDropped(DragEvent event) {
         boolean success = true;
         Dragboard dragboard = event.getDragboard();
@@ -203,6 +210,11 @@ public class PanneauDeControlePageDePresentation implements Observateur {
         event.consume();
     }
 
+    /**
+     * Procédure onDragOver utilisée lors de la gestion du drag and drop de l'image
+     *
+     * @param event l'event
+     */
     public void onDragOver(DragEvent event) {
         if (event.getDragboard().hasFiles()) {
             event.acceptTransferModes(TransferMode.ANY);
@@ -210,6 +222,9 @@ public class PanneauDeControlePageDePresentation implements Observateur {
         event.consume();
     }
 
+    /**
+     * Procédure onMouseClicked utilisée lors de la gestion du drag and drop de l'image
+     */
     public void onMouseClicked() {
         Window fenetre = imagePageDePresentation.getScene().getWindow();
         FileChooser file = new FileChooser();
