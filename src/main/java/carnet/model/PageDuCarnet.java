@@ -2,14 +2,11 @@ package carnet.model;
 
 import carnet.exceptions.FormatCoordonneesException;
 
-import java.util.Date;
-
 /**
  * La classe PageDuCarnet
  */
 public class PageDuCarnet extends Page {
     private String texte;
-    private final Date date;
     private Double latitude;
     private Double longitude;
 
@@ -19,7 +16,6 @@ public class PageDuCarnet extends Page {
     public PageDuCarnet() {
         super();
         this.texte = "";
-        this.date = null;
         this.latitude = 48.66514303712896;
         this.longitude = 6.161092511379647;
     }
@@ -84,16 +80,15 @@ public class PageDuCarnet extends Page {
      * @param coord les coordonnées
      * @throws FormatCoordonneesException FormatCoordonneesException
      */
-    public void changerLesCoordonneesDuCurseur(String coord) throws FormatCoordonneesException{
-        if(!coord.contains(","))
+    public void changerLesCoordonneesDuCurseur(String coord) throws FormatCoordonneesException {
+        if (!coord.contains(","))
             throw new FormatCoordonneesException("Attention, la latitude et la longitude sont séparés par une \",\" !");
         final String separateur = ",";
         String[] coordonnees = coord.split(separateur);
         try {
             this.setLatitude(Double.parseDouble(coordonnees[0]));
             this.setLongitude(Double.parseDouble(coordonnees[1]));
-        }
-        catch(NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             throw new FormatCoordonneesException("Attention, la latitude et la longitude sont des nombres réels!");
         }
     }

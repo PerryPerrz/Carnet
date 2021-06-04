@@ -190,7 +190,7 @@ public class CarnetDeVoyage extends SujetObserve {
     /**
      * Iterator page du carnet iterator.
      *
-     * @return l'iterateur
+     * @return l 'iterateur
      */
     public Iterator<PageDuCarnet> iteratorPageDuCarnet() {
         return this.pagesDuCarnet.iterator();
@@ -199,7 +199,7 @@ public class CarnetDeVoyage extends SujetObserve {
     /**
      * Iterator participants du carnet
      *
-     * @return l'iterateur
+     * @return l 'iterateur
      */
     public Iterator<String> iteratorParticipantsDuCarnet() {
         return this.participants.iterator();
@@ -221,7 +221,7 @@ public class CarnetDeVoyage extends SujetObserve {
     /**
      * Fonction qui retourne le nombre de page(s) du carnet
      *
-     * @return l'entier qui correspond au nombre de page(s) du carnet
+     * @return l 'entier qui correspond au nombre de page(s) du carnet
      */
     public int getNbPagesDuCarnet() {
         return this.pagesDuCarnet.size() + 1;
@@ -230,7 +230,7 @@ public class CarnetDeVoyage extends SujetObserve {
     /**
      * Fonction qui retourne le numéro correspondant à la page actuelle
      *
-     * @return l'entier qui correspond au numéro de la page actuelle
+     * @return l 'entier qui correspond au numéro de la page actuelle
      */
     public int getPageActuelle() {
         if (this.pageActuelle == -1) { //Si la page actuelle correspond à la page de présentation

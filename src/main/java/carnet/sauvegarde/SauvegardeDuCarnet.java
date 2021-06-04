@@ -21,7 +21,7 @@ public class SauvegardeDuCarnet {
     /**
      * Retourne l'instance de SauvegardeDuCarnet
      *
-     * @return l'instance de SauvegardeDuCarnet
+     * @return l 'instance de SauvegardeDuCarnet
      */
     public static SauvegardeDuCarnet getInstance() {
         return instance;

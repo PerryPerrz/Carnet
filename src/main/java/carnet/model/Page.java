@@ -85,7 +85,7 @@ public abstract class Page {
     /**
      * Fonction qui retourne l'url de l'image de la page
      *
-     * @return l'url de l'image de la page
+     * @return l 'url de l'image de la page
      */
     public String getPathImagePage() {
         return pathImagePage;

@@ -4,7 +4,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carnet.panneauDeControle.PanneauDeControlePageDePresentation">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="carnet.panneauDeControle.PanneauDeControlePageDePresentation">
     <center>
         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <center>
@@ -14,10 +16,11 @@
                             <center>
                                 <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                                     <children>
-                                        <DatePicker fx:id="dateDebut" promptText="Date début" />
-                                        <DatePicker fx:id="dateFin" promptText="Date fin" />
-                                        <TextArea fx:id="participants" prefHeight="200.0" prefWidth="200.0" promptText="Participants" />
-                                        <TextField fx:id="auteur" promptText="Auteur" />
+                                        <DatePicker fx:id="dateDebut" promptText="Date début"/>
+                                        <DatePicker fx:id="dateFin" promptText="Date fin"/>
+                                        <TextArea fx:id="participants" prefHeight="200.0" prefWidth="200.0"
+                                                  promptText="Participants"/>
+                                        <TextField fx:id="auteur" promptText="Auteur"/>
                                     </children>
                                 </VBox>
                             </center>
@@ -46,12 +49,14 @@
         </BorderPane>
     </center>
     <right>
-        <Button id="boutonPageSuivante" fx:id="boutonSuiv" mnemonicParsing="false" onAction="#pageSuivante" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER" />
+        <Button id="boutonPageSuivante" fx:id="boutonSuiv" mnemonicParsing="false" onAction="#pageSuivante"
+                style="-fx-background-color: transparent;" BorderPane.alignment="CENTER"/>
     </right>
     <bottom>
-        <Button mnemonicParsing="false" onAction="#nouvellePage" opacity="0.0" text="Button" BorderPane.alignment="CENTER" />
+        <Button mnemonicParsing="false" onAction="#nouvellePage" opacity="0.0" text="Button"
+                BorderPane.alignment="CENTER"/>
     </bottom>
     <top>
-        <Label fx:id="titre" text="Titre" BorderPane.alignment="CENTER" />
+        <Label fx:id="titre" text="Titre" BorderPane.alignment="CENTER"/>
     </top>
 </BorderPane>

@@ -78,7 +78,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
             this.carnet.getPageDePresentation().setDateDebut(dateDeb);
         } catch (ParseException e) {
             //Je reset la date de début
-            this.dateDebut.getEditor().setText("00/00/0000");
+            this.dateDebut.getEditor().setText("");
             Alert dialog = new Alert(Alert.AlertType.ERROR);
             dialog.setTitle("DateInvalideException");
             dialog.setHeaderText("Erreur de saisie : la date est invalide");
@@ -100,7 +100,7 @@ public class PanneauDeControlePageDePresentation implements Observateur {
             this.carnet.getPageDePresentation().setDateFin(dateFin);
         } catch (ParseException e) {
             //Je reset la date de fin
-            this.dateFin.getEditor().setText("00/00/0000");
+            this.dateFin.getEditor().setText("");
             Alert dialog = new Alert(Alert.AlertType.ERROR);
             dialog.setTitle("DateInvalideException");
             dialog.setHeaderText("Erreur de saisie : la date est invalide");

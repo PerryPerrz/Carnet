@@ -253,7 +253,7 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
         boutonMarker.setStyle("-fx-background-color:transparent;");
 
         Button boutonCoordonnees = new Button();
-        boutonCoordonnees.setOnAction(e->this.changerLesCoordonnees());
+        boutonCoordonnees.setOnAction(e -> this.changerLesCoordonnees());
         boutonMarker.setPrefWidth(tc.getTailleBouton());
         boutonMarker.setPrefHeight(tc.getTailleBouton());
         boutonCoordonnees.setStyle("-fx-background-color:transparent;");
@@ -284,15 +284,15 @@ public class PanneauDeControlePageDuCarnet implements Observateur {
         mapView.setMinSize(319, 147);
         mapView.setMaxSize(319, 147);
 
-        Hbox.getChildren().addAll(boutonMarker,boutonCoordonnees);
+        Hbox.getChildren().addAll(boutonMarker, boutonCoordonnees);
         Hbox.setAlignment(Pos.CENTER);
-        this.Vbox.getChildren().addAll(mapView,Hbox);
+        this.Vbox.getChildren().addAll(mapView, Hbox);
     }
 
     /**
      * Procédure qui change les coordonnées du pointeur
      */
-    public void changerLesCoordonnees(){
+    public void changerLesCoordonnees() {
         TextInputDialog dialog = new TextInputDialog("Changer les coordonnées");
         dialog.setTitle("Changer les coordonnées GPS");
         dialog.setHeaderText("Entrez les coordonnées GPS : ");

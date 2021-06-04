@@ -1,0 +1,194 @@
+@startuml
+class carnet.exceptions.FormatCoordonneesException {
+}
+class carnet.exceptions.CancelImageException {
+}
+class carnet.panneauDeControle.PanneauDeControleMenu {
++ void enregistrer()
++ void nouveau()
++ void renommer()
++ void supprimer()
++ void quitter()
++ void affichagePage()
++ void ouvrirUnCarnet()
++ void copier()
++ void coller()
++ void reagir()
+}
+carnet.panneauDeControle.PanneauDeControleMenu--"3" javafx.scene.layout.BorderPane
+carnet.panneauDeControle.PanneauDeControleMenu--"3" javafx.scene.control.MenuItem
+
+class carnet.panneauDeControle.PanneauDeControlePageDePresentation {
+- void ajouterAuteur()
+- void ajouterDateDebut()
+- void ajouterDateFin()
+- void ajouterParticipants()
++ void nouvellePage()
++ void pageSuivante()
++ void sauvegarderLesModifications()
++ void onDragDropped(DragEvent)
++ void onDragOver(DragEvent)
++ void onMouseClicked()
++ void leaveHome()
++ void reagir()
+}
+carnet.panneauDeControle.PanneauDeControlePageDePresentation--"1" javafx.scene.control.Label
+carnet.panneauDeControle.PanneauDeControlePageDePresentation--"2" javafx.scene.control.DatePicker
+carnet.panneauDeControle.PanneauDeControlePageDePresentation--"1" javafx.scene.control.TextArea
+carnet.panneauDeControle.PanneauDeControlePageDePresentation--"1" javafx.scene.control.TextField
+carnet.panneauDeControle.PanneauDeControlePageDePresentation--"1" javafx.scene.image.ImageView
+carnet.panneauDeControle.PanneauDeControlePageDePresentation--"3" javafx.scene.control.Button
+
+class carnet.Main {
++ void start(Stage)
++ {static} void main(String[])
+}
+class carnet.designPattern.SujetObserve {
++ void ajouterObservateur(Observateur)
++ void notifierObservateurs()
+}
+carnet.designPattern.SujetObserve"1"--"*" carnet.designPattern.Observateur
+
+class carnet.exceptions.SupprimerPageDePresentationException {
+}
+class carnet.model.PageDePresentation {
+- String auteur
++ void setAuteur(String)
++ void setDateDebut(Date)
++ void setDateFin(Date)
++ String getAuteur()
++ Date getDateDebut()
++ Date getDateFin()
+}
+carnet.model.PageDePresentation --"2" java.util.Date
+
+class carnet.exceptions.ImageNotLoadedException {
+}
+class carnet.exceptions.CarnetException {
+}
+class carnet.outil.FabriqueNumeroPage {
+- int numPage
+- {static} FabriqueNumeroPage instance
++ {static} FabriqueNumeroPage getInstance()
++ int getNumeroPage()
++ void reset()
+}
+abstract class carnet.model.Page {
+# String titre
+# int numeroPage
+# int indicePage
+# String pathImagePage
++ void setTitre(String)
++ int getNumeroPage()
++ int getIndicePage()
++ void setIndicePage(int)
++ String getTitre()
++ String getPathImagePage()
++ void setPathImagePage(String)
+}
+interface carnet.designPattern.Observateur {
+~ void reagir()
+}
+class carnet.panneauDeControle.PanneauDeControlePageDuCarnet {
+- void ajouterTitre()
+- void ajouterTexte()
++ void nouvellePage()
++ void pageSuivante()
++ void pagePrecedente()
++ void enregistrer()
++ void onDragDropped(DragEvent)
++ void onDragOver(DragEvent)
++ void onMouseClicked()
++ void goHome()
+~ void initialize()
++ void changerLesCoordonnees()
++ void reagir()
+}
+carnet.panneauDeControle.PanneauDeControlePageDuCarnet--"1" com.sothawo.mapjfx.Marker
+carnet.panneauDeControle.PanneauDeControlePageDuCarnet--"1" com.sothawo.mapjfx.MapView
+carnet.panneauDeControle.PanneauDeControlePageDuCarnet--"1" javafx.scene.control.Label
+carnet.panneauDeControle.PanneauDeControlePageDuCarnet--"1" javafx.scene.control.TextArea
+carnet.panneauDeControle.PanneauDeControlePageDuCarnet--"1" javafx.scene.image.ImageView
+carnet.panneauDeControle.PanneauDeControlePageDuCarnet--"4" javafx.scene.control.Button
+carnet.panneauDeControle.PanneauDeControlePageDuCarnet--"1" javafx.scene.layout.VBox
+
+class carnet.outil.TailleComposants {
+- {static} TailleComposants instance
+- int tailleBouton
+- int windowX
+- int windowY
++ {static} TailleComposants getInstance()
++ int getTailleBouton()
++ int getWindowX()
++ int getWindowY()
+}
+class carnet.sauvegarde.SauvegardeDuCarnet {
+- {static} SauvegardeDuCarnet instance
++ {static} SauvegardeDuCarnet getInstance()
++ void sauvegardeDuCarnet(CarnetDeVoyage,File,String)
++ CarnetDeVoyage retranscriptionDuCarnet(File)
++ void sauvegardeDUnePage(PageDuCarnet)
++ PageDuCarnet retranscriptionDUnePageDuCarnet()
+}
+class carnet.exceptions.PageInexistanteException {
+}
+class carnet.exceptions.FichierDeSauvegardeException {
+}
+class carnet.model.PageDuCarnet {
+- String texte
+- Double latitude
+- Double longitude
++ String getTexte()
++ void setTexte(String)
++ Double getLatitude()
++ void setLatitude(Double)
++ Double getLongitude()
++ void setLongitude(Double)
++ void changerLesCoordonneesDuCurseur(String)
+}
+class carnet.model.CarnetDeVoyage {
+- ArrayList<String> participants
+- int pageActuelle
+- boolean toTheLeft
++ void enregistrerCarnet(File,String)
++ void renommerCarnet(String)
++ void renommerPage(String)
++ void ajouterPage()
++ void supprimerPage(int)
++ void ajouterParticipants(String)
++ Page pagePrecedente()
++ Page pageSuivante()
++ PageDePresentation getPageDePresentation()
++ PageDuCarnet getPageDuCarnet()
++ Page getPageDuCarnetAvecUnNumero(int)
++ Iterator<PageDuCarnet> iteratorPageDuCarnet()
++ Iterator<String> iteratorParticipantsDuCarnet()
++ void raffraichirIndices()
++ int getNbPagesDuCarnet()
++ int getPageActuelle()
++ boolean siLaPageActuelleEstLaPageDePresentation()
++ String getParticipants()
++ boolean isToTheLeft()
++ void nettoyerLesParticipants()
++ void backToPageDePresentation()
++ void goToLastPage()
++ void retranscriptionDesInformationsDUnePageDuCarnet(PageDuCarnet)
+}
+carnet.model.CarnetDeVoyage--"1" carnet.model.PageDePresentation
+carnet.model.CarnetDeVoyage--"*" carnet.model.PageDuCarnet
+
+carnet.exceptions.CarnetException <|-- carnet.exceptions.FormatCoordonneesException
+carnet.exceptions.CarnetException <|-- carnet.exceptions.CancelImageException
+carnet.designPattern.Observateur <|.. carnet.panneauDeControle.PanneauDeControleMenu
+carnet.designPattern.Observateur <|.. carnet.panneauDeControle.PanneauDeControlePageDePresentation
+javafx.application.Application <|-- carnet.Main
+carnet.exceptions.CarnetException <|-- carnet.exceptions.SupprimerPageDePresentationException
+carnet.model.Page <|-- carnet.model.PageDePresentation
+carnet.exceptions.CarnetException <|-- carnet.exceptions.ImageNotLoadedException
+carnet.exceptions.Exception <|-- carnet.exceptions.CarnetException
+carnet.designPattern.Observateur <|.. carnet.panneauDeControle.PanneauDeControlePageDuCarnet
+carnet.exceptions.CarnetException <|-- carnet.exceptions.PageInexistanteException
+carnet.exceptions.CarnetException <|-- carnet.exceptions.FichierDeSauvegardeException
+carnet.model.Page <|-- carnet.model.PageDuCarnet
+carnet.designPattern.SujetObserve <|-- carnet.model.CarnetDeVoyage
+@enduml
